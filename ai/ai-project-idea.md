@@ -49,8 +49,16 @@ To allow tailored pitching without duplicating API costs:
 
 ### URL Routing Strategy
 
-- **Primary Kit**: `app.domain.com/[username]` (Default)
-- **Secondary Kits (Pro)**: `app.domain.com/[username]/[slug]` (e.g., `/josh/q4-rates`)
+- **Primary Kit**: `kyt.one/[username]` (Default)
+- **Secondary Kits (Pro)**: `kyt.one/[username]/[slug]` (e.g., `/josh/q4-rates`)
+
+### Infrastructure & Operations
+
+- **Domain**: `kyt.one`
+- **Email**: Forwarding configured to personal email (Cost saving).
+    - `admin@kyt.one`
+    - `contact@kyt.one`
+    - `hello@kyt.one`
 
 ### Monetization (Micro-SaaS)
 
@@ -62,7 +70,7 @@ To allow tailored pitching without duplicating API costs:
 | **Sync Frequency** | Weekly | Daily/Hourly |
 | **Data Depth** | Current Stats Only | **Historical Growth Graphs** |
 | **Branding** | "Powered by [App]" | **White Label** |
-| **Domain** | `kit.bio/user` | **Custom Domain** (`kit.user.com`) |
+| **Domain** | `kyt.one/user` | **Custom Domain** (`kit.user.com`) |
 
 ---
 
