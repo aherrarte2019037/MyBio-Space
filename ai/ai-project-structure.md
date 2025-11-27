@@ -45,6 +45,30 @@ The project uses a standard Turborepo layout with Bun workspaces:
     └── config/              # Shared TSConfig, Biome config
 ```
 
+```
+
+---
+
+## 3. Domain & Routing Strategy
+
+We use a **Multi-Zone** architecture to serve multiple apps under the `kyt.one` domain.
+
+### Architecture
+- **`app.kyt.one`** -> `apps/dashboard`
+    - Standalone Next.js app for the Creator Admin Dashboard.
+- **`kyt.one`** -> `apps/landing`
+    - The "Main Router" app.
+    - Serves Landing Page, Pricing, About, etc.
+- **`kyt.one/[username]`** -> `apps/profile`
+    - Served via **Rewrite** from `apps/landing`.
+    - If a route is NOT found in `apps/landing`, it rewrites to `apps/profile` (hosted at `profiles.kyt.one`).
+
+### Routing Logic (apps/landing/next.config.js)
+1.  **Filesystem Priority**: Checks if page exists in `apps/landing` (e.g., `/pricing`). If yes, serve it.
+2.  **Rewrite Fallback**: If not found, rewrite to `profiles.kyt.one/:path*`.
+
+This allows us to have a unified domain experience while keeping the Marketing and Profile apps separate.
+
 ---
 
 ## 3. Dependency Management
