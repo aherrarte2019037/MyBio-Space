@@ -37,10 +37,10 @@ export async function signUpWithEmail(formData: FormData) {
   });
 
   if (error) {
-    return redirect("/auth/sign-in?error=" + error.message);
+    return redirect(`/auth/sign-in?error=${error.message}`);
   }
 
-  return redirect("/auth/sign-in?message=Check email to continue sign in process");
+  return redirect(`/auth/sign-in?message=Check email to continue sign in process`);
 }
 
 export async function signInWithEmail(formData: FormData) {
@@ -54,7 +54,7 @@ export async function signInWithEmail(formData: FormData) {
   });
 
   if (error) {
-    return redirect("/auth/sign-in?error=" + error.message);
+    return redirect(`/auth/sign-in?error=${error.message}`);
   }
 
   return redirect("/");
@@ -69,7 +69,7 @@ export async function forgotPassword(formData: FormData) {
   });
 
   if (error) {
-    return redirect("/auth/forgot-password?error=" + error.message);
+    return redirect(`/auth/forgot-password?error=${error.message}`);
   }
 
   return redirect("/auth/forgot-password?message=Check email to reset password");
@@ -89,7 +89,7 @@ export async function resetPassword(formData: FormData) {
   });
 
   if (error) {
-    return redirect("/auth/reset-password?error=" + error.message);
+    return redirect(`/auth/reset-password?error=${error.message}`);
   }
 
   return redirect("/");
