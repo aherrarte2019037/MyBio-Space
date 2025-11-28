@@ -184,4 +184,8 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+
+  .flex-col {
+    @apply flex flex-col;
+  }
 }
