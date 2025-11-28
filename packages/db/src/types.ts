@@ -52,7 +52,7 @@ export type Database = {
           email: string;
           id: string;
           onboarding_steps: Database["public"]["Enums"]["onboarding_steps"][];
-          tier: string;
+          tier: Database["public"]["Enums"]["subscription_tier"];
           updated_at: string;
           username: string | null;
         };
@@ -61,7 +61,7 @@ export type Database = {
           email: string;
           id: string;
           onboarding_steps?: Database["public"]["Enums"]["onboarding_steps"][];
-          tier?: string;
+          tier?: Database["public"]["Enums"]["subscription_tier"];
           updated_at?: string;
           username?: string | null;
         };
@@ -70,7 +70,7 @@ export type Database = {
           email?: string;
           id?: string;
           onboarding_steps?: Database["public"]["Enums"]["onboarding_steps"][];
-          tier?: string;
+          tier?: Database["public"]["Enums"]["subscription_tier"];
           updated_at?: string;
           username?: string | null;
         };
@@ -125,10 +125,14 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      complete_onboarding_step: {
+        Args: { step_name: string };
+        Returns: undefined;
+      };
     };
     Enums: {
       onboarding_steps: "username" | "stats";
+      subscription_tier: "free" | "pro";
     };
     CompositeTypes: {
       [_ in never]: never;
@@ -255,6 +259,7 @@ export const Constants = {
   public: {
     Enums: {
       onboarding_steps: ["username", "stats"],
+      subscription_tier: ["free", "pro"],
     },
   },
 } as const;

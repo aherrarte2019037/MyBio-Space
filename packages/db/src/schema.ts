@@ -12,6 +12,7 @@ import {
 } from "drizzle-orm/pg-core";
 
 export const onboardingSteps = pgEnum("onboarding_steps", ["username", "stats"]);
+export const subscriptionTier = pgEnum("subscription_tier", ["free", "pro"]);
 
 const authSchema = pgSchema("auth");
 const authUsers = authSchema.table("users", {
@@ -26,9 +27,7 @@ export const profiles = pgTable(
       .references(() => authUsers.id, { onDelete: "cascade" }),
     email: text("email").notNull(),
     username: text("username").unique(),
-    tier: text("tier", { enum: ["free", "pro"] })
-      .default("free")
-      .notNull(),
+    tier: subscriptionTier("tier").default("free").notNull(),
     onboardingSteps: onboardingSteps("onboarding_steps").array().default([]).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),

@@ -23,8 +23,8 @@ Stores application-specific user data. This table extends Supabase's `auth.users
 | `id` | `uuid` | `PK`, `FK -> auth.users.id` | Primary Key, matches Supabase Auth User ID. |
 | `email` | `text` | `NOT NULL` | User's email address. |
 | `username` | `text` | `UNIQUE` | Unique handle for the creator (e.g., "josh"). |
-| `tier` | `text` | `DEFAULT 'free'`, `NOT NULL` | Subscription tier (`free` or `pro`). |
-| `onboarding_completed` | `boolean` | `DEFAULT false`, `NOT NULL` | Whether the user has completed the onboarding flow. |
+| `tier` | `subscription_tier` | `DEFAULT 'free'`, `NOT NULL` | Subscription tier (`free` or `pro`). |
+| `onboarding_steps` | `onboarding_steps[]` | `DEFAULT []`, `NOT NULL` | Array of completed onboarding steps (e.g., `['username', 'stats']`). |
 | `created_at` | `timestamp` | `DEFAULT now()` | Creation timestamp. |
 | `updated_at` | `timestamp` | `DEFAULT now()` | Last update timestamp. |
 
@@ -81,4 +81,5 @@ Stores the media kits created by users.
 
 ## Enums
 
-- **Tier**: `['free', 'pro']`
+- **subscription_tier**: `['free', 'pro']`
+- **onboarding_steps**: `['username', 'stats']`
