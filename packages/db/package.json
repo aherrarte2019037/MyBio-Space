@@ -10,7 +10,7 @@
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",
     "db:studio": "drizzle-kit studio",
-    "db:types": "supabase gen types typescript --db-url \"$DATABASE_URL\" > src/types.ts"
+    "db:types": "supabase gen types typescript --project-id ugyblfknwgcnjtajwvjo > src/types.ts"
   },
   "dependencies": {
     "drizzle-orm": "catalog:db",
