@@ -29,6 +29,13 @@
       "when": 1764441209302,
       "tag": "0003_red_moonstone",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1764441482604,
+      "tag": "0004_update_complete_onboarding_function",
+      "breakpoints": true
     }
   ]
 }
