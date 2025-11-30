@@ -116,6 +116,30 @@ Stores historical and current analytics data for connected platforms.
 
 ---
 
+### 6. Views
+
+#### Accounts Due For Update (`public.accounts_due_for_update`)
+
+A view that filters `connected_accounts` to find those needing a stats refresh. It handles the logic for different update frequencies based on user tiers.
+
+**Logic:**
+- **Pro Users**: Update if data is older than **1 hour**.
+- **Free Users**: Update if data is older than **24 hours**.
+- **New Accounts**: Update if `updated_at` is NULL.
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `uuid` | Connected Account ID. |
+| `user_id` | `uuid` | User ID. |
+| `provider` | `connected_account_provider` | Platform provider. |
+| `account_id` | `text` | External Account ID. |
+| `access_token` | `text` | OAuth Access Token. |
+| `refresh_token` | `text` | OAuth Refresh Token. |
+| `expires_at` | `timestamp` | Token expiration time. |
+| `updated_at` | `timestamp` | Last update time. |
+
+---
+
 ## Relationships
 
 - **One-to-One**: `auth.users` ↔ `public.profiles`
