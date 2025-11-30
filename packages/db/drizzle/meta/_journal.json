@@ -50,6 +50,13 @@
       "when": 1764468841093,
       "tag": "0006_secret_absorbing_man",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1764480674204,
+      "tag": "0007_groovy_red_skull",
+      "breakpoints": true
     }
   ]
 }

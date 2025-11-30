@@ -234,7 +234,7 @@ export type Database = {
     };
     Enums: {
       connected_account_provider: "youtube";
-      onboarding_steps: "username" | "stats";
+      onboarding_steps: "username" | "stats" | "welcome";
       subscription_tier: "free" | "pro";
     };
     CompositeTypes: {
@@ -362,7 +362,7 @@ export const Constants = {
   public: {
     Enums: {
       connected_account_provider: ["youtube"],
-      onboarding_steps: ["username", "stats"],
+      onboarding_steps: ["username", "stats", "welcome"],
       subscription_tier: ["free", "pro"],
     },
   },

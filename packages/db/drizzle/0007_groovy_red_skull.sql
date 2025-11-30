@@ -1,0 +1,1 @@
+ALTER TYPE "public"."onboarding_steps" ADD VALUE 'welcome';
