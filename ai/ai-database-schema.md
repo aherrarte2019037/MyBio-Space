@@ -27,6 +27,7 @@ Stores application-specific user data. This table extends Supabase's `auth.users
 | `onboarding_steps` | `onboarding_steps[]` | `DEFAULT []`, `NOT NULL` | Array of completed onboarding steps (e.g., `['username', 'stats', 'welcome']`). |
 | `created_at` | `timestamp` | `DEFAULT now()` | Creation timestamp. |
 | `updated_at` | `timestamp` | `DEFAULT now()` | Last update timestamp. |
+| `deleted_at` | `timestamp` | | Soft delete timestamp. |
 
 **Row Level Security (RLS):**
 - **Select**: Users can view their own profile.
@@ -48,6 +49,7 @@ Stores subscription details, allowing for multiple providers (Stripe, Lemon Sque
 | `current_period_end` | `timestamp` | | Subscription expiration date. |
 | `created_at` | `timestamp` | `DEFAULT now()` | Creation timestamp. |
 | `updated_at` | `timestamp` | `DEFAULT now()` | Last update timestamp. |
+| `deleted_at` | `timestamp` | | Soft delete timestamp. |
 
 **Row Level Security (RLS):**
 - **Select**: Users can view their own subscription.
@@ -62,9 +64,11 @@ Stores the media kits created by users.
 | `user_id` | `uuid` | `FK -> profiles.id` | Owner of the kit. |
 | `slug` | `text` | `UNIQUE`, `NOT NULL` | URL slug for the kit (e.g., "gaming"). |
 | `published` | `boolean` | `DEFAULT false`, `NOT NULL` | Whether the kit is publicly visible. |
+| `default` | `boolean` | `DEFAULT false`, `NOT NULL` | Whether this is the default kit for the user. |
 | `theme` | `jsonb` | | Visual theme settings (primary color, radius). |
 | `created_at` | `timestamp` | `DEFAULT now()` | Creation timestamp. |
 | `updated_at` | `timestamp` | `DEFAULT now()` | Last update timestamp. |
+| `deleted_at` | `timestamp` | | Soft delete timestamp. |
 
 **Row Level Security (RLS):**
 - **Select**: Public access (Only if `published = true`). Users can always view their own.
@@ -90,6 +94,7 @@ Stores OAuth credentials for external platforms (YouTube, Instagram, etc.).
 | `scope` | `text` | | Scopes granted by the user (e.g., to verify 'analytics.readonly'). |
 | `created_at` | `timestamp` | `DEFAULT now()` | Creation timestamp. |
 | `updated_at` | `timestamp` | `DEFAULT now()` | Last update timestamp. |
+| `deleted_at` | `timestamp` | | Soft delete timestamp. |
 
 **Row Level Security (RLS):**
 - **Select**: Users can view their own connected accounts.
@@ -109,6 +114,8 @@ Stores historical and current analytics data for connected platforms.
 | `stats` | `jsonb` | | The "Header" Data (Fast, cheap to read). Typed as `AnalyticsStats`. |
 | `history` | `jsonb` | | The "Growth Graph" Data (The "Verified" Proof). Typed as `AnalyticsHistoryItem[]`. |
 | `created_at` | `timestamp` | `DEFAULT now()` | Creation timestamp. |
+| `updated_at` | `timestamp` | `DEFAULT now()` | Last update timestamp. |
+| `deleted_at` | `timestamp` | | Soft delete timestamp. |
 
 **Row Level Security (RLS):**
 - **Select**: Users can view their own snapshots.

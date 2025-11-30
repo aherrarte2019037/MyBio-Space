@@ -16,10 +16,12 @@
     "@supabase/ssr": "catalog:db",
     "@supabase/supabase-js": "catalog:db",
     "googleapis": "^166.0.0",
+    "lucide-react": "catalog:ui",
     "next": "catalog:default",
     "react": "catalog:default",
     "react-dom": "catalog:default",
     "react-hook-form": "catalog:default",
+    "react-if": "catalog:ui",
     "zod": "catalog:default",
     "date-fns": "catalog:default"
   },
