@@ -24,7 +24,7 @@ Stores application-specific user data. This table extends Supabase's `auth.users
 | `email` | `text` | `NOT NULL` | User's email address. |
 | `username` | `text` | `UNIQUE` | Unique handle for the creator (e.g., "josh"). |
 | `tier` | `subscription_tier` | `DEFAULT 'free'`, `NOT NULL` | Subscription tier (`free` or `pro`). |
-| `onboarding_steps` | `onboarding_steps[]` | `DEFAULT []`, `NOT NULL` | Array of completed onboarding steps (e.g., `['username', 'stats']`). |
+| `onboarding_steps` | `onboarding_steps[]` | `DEFAULT []`, `NOT NULL` | Array of completed onboarding steps (e.g., `['username', 'stats', 'welcome']`). |
 | `created_at` | `timestamp` | `DEFAULT now()` | Creation timestamp. |
 | `updated_at` | `timestamp` | `DEFAULT now()` | Last update timestamp. |
 
@@ -148,7 +148,7 @@ A view that filters `connected_accounts` to find those needing a stats refresh. 
 ## Enums
 
 - **subscription_tier**: `['free', 'pro']`
-- **onboarding_steps**: `['username', 'stats']`
+- **onboarding_steps**: `['username', 'stats', 'welcome']`
 - **connected_account_provider**: `['youtube']`
 
 ## JSON Types
