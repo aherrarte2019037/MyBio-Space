@@ -1,0 +1,2 @@
+ALTER TYPE "public"."metric_type" ADD VALUE 'all';--> statement-breakpoint
+ALTER TABLE "media_kits" ALTER COLUMN "blocks" SET DEFAULT '[{"id":"1","type":"profile","data":{}},{"id":"2","type":"separator","data":{"title":"Stats"}},{"id":"3","type":"stats","data":{"provider":"youtube","metric":"all"}},{"id":"4","type":"separator","data":{"title":"Contact"}},{"id":"5","type":"contact","data":{"buttonText":"Get in touch"}}]'::jsonb;

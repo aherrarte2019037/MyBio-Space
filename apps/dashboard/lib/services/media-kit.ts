@@ -23,10 +23,6 @@ export async function createDefaultKit(userId: string) {
       slug: profile.username,
       published: true,
       default: true,
-      theme: {
-        primary: "#171717",
-        radius: 0.5,
-      },
     })
     .returning();
 

@@ -11,7 +11,12 @@ import {
   timestamp,
   uuid,
 } from "drizzle-orm/pg-core";
-import { DefaultAnalyticsStats, DefaultKitTheme, timestamps } from "./schema.helpers";
+import {
+  DefaultAnalyticsStats,
+  DefaultKitBlocks,
+  DefaultKitTheme,
+  timestamps,
+} from "./schema.helpers";
 
 // --- Enums ---
 export const onboardingSteps = pgEnum("onboarding_steps", ["username", "stats", "welcome"]);
@@ -21,21 +26,19 @@ export const connectedAccountProvider = pgEnum("connected_account_provider", [
   "instagram",
   "tiktok",
 ]);
-export const metricType = pgEnum("metric_type", ["views", "subscribers", "watchTime"]);
+export const metricType = pgEnum("metric_type", ["views", "subscribers", "watchTime", "all"]);
 
 // --- JSON Types ---
-export type ProfileBlockData = {
-  displayName: string;
-};
+export type ProfileBlockData = { [k: string]: never };
 
 export interface StatsBlockData {
-  provider: typeof connectedAccountProvider.enumValues;
-  metric: typeof metricType.enumValues;
+  provider: (typeof connectedAccountProvider.enumValues)[number];
+  metric: (typeof metricType.enumValues)[number];
 }
 
 export interface ChartBlockData {
-  provider: typeof connectedAccountProvider.enumValues;
-  metric: typeof metricType.enumValues;
+  provider: (typeof connectedAccountProvider.enumValues)[number];
+  metric: (typeof metricType.enumValues)[number];
   days: number;
 }
 
@@ -75,12 +78,12 @@ export interface AnalyticsHistoryItem {
 }
 
 export type KitBlock =
-  | { id: string; type: "profile"; isVisible: boolean; data: ProfileBlockData }
-  | { id: string; type: "stats"; isVisible: boolean; data: StatsBlockData }
-  | { id: string; type: "chart"; isVisible: boolean; data: ChartBlockData }
-  | { id: string; type: "separator"; isVisible: boolean; data: SeparatorBlockData }
-  | { id: string; type: "custom"; isVisible: boolean; data: CustomBlockData }
-  | { id: string; type: "contact"; isVisible: boolean; data: ContactBlockData };
+  | { id: string; type: "profile"; data: ProfileBlockData }
+  | { id: string; type: "stats"; data: StatsBlockData }
+  | { id: string; type: "chart"; data: ChartBlockData }
+  | { id: string; type: "separator"; data: SeparatorBlockData }
+  | { id: string; type: "custom"; data: CustomBlockData }
+  | { id: string; type: "contact"; data: ContactBlockData };
 
 export type BlockType = KitBlock["type"];
 
@@ -153,7 +156,7 @@ export const mediaKits = pgTable(
     published: boolean("published").default(false).notNull(),
     default: boolean("default").default(false).notNull(),
     theme: jsonb("theme").$type<MediaKitTheme>().notNull().default(DefaultKitTheme),
-    blocks: jsonb("blocks").$type<KitBlock[]>().default([]).notNull(),
+    blocks: jsonb("blocks").$type<KitBlock[]>().notNull().default(DefaultKitBlocks),
     ...timestamps,
   },
   (table) => [

@@ -109,11 +109,14 @@ export async function fetchAndSaveYouTubeStats(
     subscriberCount: parsedChannelStatistics.subscriberCount,
     videoCount: parsedChannelStatistics.videoCount,
     viewCount: parsedChannelStatistics.viewCount,
+    followerCount: 0,
+    mediaCount: 0,
   };
 
   await db.insert(analyticsSnapshots).values({
     userId,
     platformId: channelId,
+    provider: "youtube",
     stats,
     history,
   });

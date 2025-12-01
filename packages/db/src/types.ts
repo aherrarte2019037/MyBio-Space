@@ -261,7 +261,7 @@ export type Database = {
     };
     Enums: {
       connected_account_provider: "youtube" | "instagram" | "tiktok";
-      metric_type: "views" | "subscribers" | "watchTime";
+      metric_type: "views" | "subscribers" | "watchTime" | "all";
       onboarding_steps: "username" | "stats" | "welcome";
       subscription_tier: "free" | "pro";
     };
@@ -390,7 +390,7 @@ export const Constants = {
   public: {
     Enums: {
       connected_account_provider: ["youtube", "instagram", "tiktok"],
-      metric_type: ["views", "subscribers", "watchTime"],
+      metric_type: ["views", "subscribers", "watchTime", "all"],
       onboarding_steps: ["username", "stats", "welcome"],
       subscription_tier: ["free", "pro"],
     },
