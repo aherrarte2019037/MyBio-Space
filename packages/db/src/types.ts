@@ -15,6 +15,7 @@ export type Database = {
           history: Json;
           id: string;
           platform_id: string;
+          provider: Database["public"]["Enums"]["connected_account_provider"];
           stats: Json;
           updated_at: string;
           user_id: string;
@@ -25,6 +26,7 @@ export type Database = {
           history?: Json;
           id?: string;
           platform_id: string;
+          provider: Database["public"]["Enums"]["connected_account_provider"];
           stats?: Json;
           updated_at?: string;
           user_id: string;
@@ -35,6 +37,7 @@ export type Database = {
           history?: Json;
           id?: string;
           platform_id?: string;
+          provider?: Database["public"]["Enums"]["connected_account_provider"];
           stats?: Json;
           updated_at?: string;
           user_id?: string;
@@ -101,6 +104,7 @@ export type Database = {
       };
       media_kits: {
         Row: {
+          blocks: Json;
           created_at: string;
           default: boolean;
           deleted_at: string | null;
@@ -112,6 +116,7 @@ export type Database = {
           user_id: string;
         };
         Insert: {
+          blocks?: Json;
           created_at?: string;
           default?: boolean;
           deleted_at?: string | null;
@@ -123,6 +128,7 @@ export type Database = {
           user_id: string;
         };
         Update: {
+          blocks?: Json;
           created_at?: string;
           default?: boolean;
           deleted_at?: string | null;
@@ -254,7 +260,8 @@ export type Database = {
       };
     };
     Enums: {
-      connected_account_provider: "youtube";
+      connected_account_provider: "youtube" | "instagram" | "tiktok";
+      metric_type: "views" | "subscribers" | "watchTime";
       onboarding_steps: "username" | "stats" | "welcome";
       subscription_tier: "free" | "pro";
     };
@@ -382,7 +389,8 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      connected_account_provider: ["youtube"],
+      connected_account_provider: ["youtube", "instagram", "tiktok"],
+      metric_type: ["views", "subscribers", "watchTime"],
       onboarding_steps: ["username", "stats", "welcome"],
       subscription_tier: ["free", "pro"],
     },

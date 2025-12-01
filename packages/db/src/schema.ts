@@ -16,9 +16,46 @@ import { DefaultAnalyticsStats, DefaultKitTheme, timestamps } from "./schema.hel
 // --- Enums ---
 export const onboardingSteps = pgEnum("onboarding_steps", ["username", "stats", "welcome"]);
 export const subscriptionTier = pgEnum("subscription_tier", ["free", "pro"]);
-export const connectedAccountProvider = pgEnum("connected_account_provider", ["youtube"]);
+export const connectedAccountProvider = pgEnum("connected_account_provider", [
+  "youtube",
+  "instagram",
+  "tiktok",
+]);
+export const metricType = pgEnum("metric_type", ["views", "subscribers", "watchTime"]);
 
 // --- JSON Types ---
+export type ProfileBlockData = {
+  displayName: string;
+};
+
+export interface StatsBlockData {
+  provider: typeof connectedAccountProvider.enumValues;
+  metric: typeof metricType.enumValues;
+}
+
+export interface ChartBlockData {
+  provider: typeof connectedAccountProvider.enumValues;
+  metric: typeof metricType.enumValues;
+  days: number;
+}
+
+export interface SeparatorBlockData {
+  title: string;
+}
+
+export interface ContactBlockData {
+  buttonText: string;
+}
+
+export interface CustomBlockData {
+  title?: string;
+  description?: string;
+  textColor?: string;
+  link?: string;
+  backgroundColor?: string;
+  backgroundImage?: string;
+}
+
 export interface MediaKitTheme {
   primary: string;
   radius: number;
@@ -28,13 +65,24 @@ export interface AnalyticsStats {
   subscriberCount: number;
   videoCount: number;
   viewCount: number;
+  followerCount: number;
+  mediaCount: number;
 }
 
 export interface AnalyticsHistoryItem {
   date: string;
-  views: number;
-  watchTimeMinutes: number;
+  [key: string]: number | string;
 }
+
+export type KitBlock =
+  | { id: string; type: "profile"; isVisible: boolean; data: ProfileBlockData }
+  | { id: string; type: "stats"; isVisible: boolean; data: StatsBlockData }
+  | { id: string; type: "chart"; isVisible: boolean; data: ChartBlockData }
+  | { id: string; type: "separator"; isVisible: boolean; data: SeparatorBlockData }
+  | { id: string; type: "custom"; isVisible: boolean; data: CustomBlockData }
+  | { id: string; type: "contact"; isVisible: boolean; data: ContactBlockData };
+
+export type BlockType = KitBlock["type"];
 
 // --- Tables ---
 
@@ -105,6 +153,7 @@ export const mediaKits = pgTable(
     published: boolean("published").default(false).notNull(),
     default: boolean("default").default(false).notNull(),
     theme: jsonb("theme").$type<MediaKitTheme>().notNull().default(DefaultKitTheme),
+    blocks: jsonb("blocks").$type<KitBlock[]>().default([]).notNull(),
     ...timestamps,
   },
   (table) => [
@@ -169,6 +218,7 @@ export const analyticsSnapshots = pgTable(
     userId: uuid("user_id")
       .notNull()
       .references(() => profiles.id, { onDelete: "cascade" }),
+    provider: connectedAccountProvider("provider").notNull(),
     platformId: text("platform_id").notNull(),
     stats: jsonb("stats").$type<AnalyticsStats>().notNull().default(DefaultAnalyticsStats),
     history: jsonb("history").$type<AnalyticsHistoryItem[]>().notNull().default([]),

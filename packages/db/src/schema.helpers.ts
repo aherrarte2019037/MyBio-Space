@@ -16,4 +16,6 @@ export const DefaultAnalyticsStats: AnalyticsStats = {
   subscriberCount: 0,
   videoCount: 0,
   viewCount: 0,
+  followerCount: 0,
+  mediaCount: 0,
 };
