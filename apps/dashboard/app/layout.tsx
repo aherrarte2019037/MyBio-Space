@@ -5,8 +5,8 @@ import { authGuard } from "@/lib/utils/auth-guard";
 
 export const metadata: Metadata = {
   title: {
-    default: "Kyt | Dashboard",
-    template: "Kyt | %s",
+    default: "Dashboard | Kyt",
+    template: "%s | Kyt",
   },
   description: "Manage your verified media kit and partnerships.",
 };
