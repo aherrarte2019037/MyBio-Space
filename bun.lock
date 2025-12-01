@@ -52,6 +52,7 @@
         "react": "catalog:default",
         "react-dom": "catalog:default",
         "react-if": "catalog:ui",
+        "usehooks-ts": "catalog:utils",
       },
       "devDependencies": {
         "@repo/config": "workspace:*",

@@ -65,7 +65,7 @@ Stores the media kits created by users.
 | `slug` | `text` | `UNIQUE`, `NOT NULL` | URL slug for the kit (e.g., "gaming"). |
 | `published` | `boolean` | `DEFAULT false`, `NOT NULL` | Whether the kit is publicly visible. |
 | `default` | `boolean` | `DEFAULT false`, `NOT NULL` | Whether this is the default kit for the user. |
-| `theme` | `jsonb` | | Visual theme settings (primary color, radius). |
+| `theme` | `jsonb` | `DEFAULT DefaultKitTheme`, `NOT NULL` | Visual theme settings (primary color, radius). |
 | `created_at` | `timestamp` | `DEFAULT now()` | Creation timestamp. |
 | `updated_at` | `timestamp` | `DEFAULT now()` | Last update timestamp. |
 | `deleted_at` | `timestamp` | | Soft delete timestamp. |
@@ -100,7 +100,6 @@ Stores OAuth credentials for external platforms (YouTube, Instagram, etc.).
 - **Select**: Users can view their own connected accounts.
 - **Insert**: Users can connect new accounts.
 - **Update**: Users can update their own connected accounts (e.g., refreshing tokens).
-- **Delete**: Users can disconnect accounts.
 
 ### 5. Analytics Snapshots (`public.analytics_snapshots`)
 
@@ -111,15 +110,14 @@ Stores historical and current analytics data for connected platforms.
 | `id` | `uuid` | `PK`, `DEFAULT gen_random_uuid()` | Unique ID. |
 | `user_id` | `uuid` | `FK -> profiles.id`, `NOT NULL` | Link to the user. |
 | `platform_id` | `text` | `NOT NULL` | Links snapshot to specific channel/account. |
-| `stats` | `jsonb` | | The "Header" Data (Fast, cheap to read). Typed as `AnalyticsStats`. |
-| `history` | `jsonb` | | The "Growth Graph" Data (The "Verified" Proof). Typed as `AnalyticsHistoryItem[]`. |
+| `stats` | `jsonb` | `DEFAULT DefaultAnalyticsStats`, `NOT NULL` | The "Header" Data (Fast, cheap to read). Typed as `AnalyticsStats`. |
+| `history` | `jsonb` | `DEFAULT []`, `NOT NULL` | The "Growth Graph" Data (The "Verified" Proof). Typed as `AnalyticsHistoryItem[]`. |
 | `created_at` | `timestamp` | `DEFAULT now()` | Creation timestamp. |
 | `updated_at` | `timestamp` | `DEFAULT now()` | Last update timestamp. |
 | `deleted_at` | `timestamp` | | Soft delete timestamp. |
 
 **Row Level Security (RLS):**
 - **Select**: Users can view their own snapshots.
-- **Insert**: System or User can create snapshots.
 
 ---
 

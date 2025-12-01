@@ -1,8 +1,9 @@
-import { Button, Card, CardContent, CardHeader, CardTitle } from "@repo/ui";
+import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui";
 import { shortNumber } from "@repo/utils";
 import { ShieldCheck } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ContactButton } from "@/components/contact-button";
 import { getPublishedMediaKit } from "@/lib/services/media-kit";
 
 interface PageProps {
@@ -55,11 +56,11 @@ export default async function MediaKitPage({ params }: PageProps) {
           </div>
         </div>
 
-        <Button className="w-full h-12 text-base font-semibold shadow-sm text-white bg-primary hover:bg-(--primary)/90 rounded-(--radius)">
-          Work With Me
-        </Button>
+        <ContactButton
+          profileId={profile.id}
+          className="w-full h-12 text-base font-semibold shadow-sm text-white bg-primary hover:bg-(--primary)/90 rounded-(--radius)"
+        />
 
-        {/* Stats Grid with dynamic rounding */}
         <div className="grid gap-4">
           <Card className="rounded-(--radius) shadow-sm border-slate-200">
             <CardHeader className="pb-2">
