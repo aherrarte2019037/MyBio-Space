@@ -66,6 +66,7 @@ Stores the media kits created by users.
 | `published` | `boolean` | `DEFAULT false`, `NOT NULL` | Whether the kit is publicly visible. |
 | `default` | `boolean` | `DEFAULT false`, `NOT NULL` | Whether this is the default kit for the user. |
 | `theme` | `jsonb` | `DEFAULT DefaultKitTheme`, `NOT NULL` | Visual theme settings (primary color, radius). |
+| `blocks` | `jsonb` | `DEFAULT DefaultKitBlocks`, `NOT NULL` | Array of content blocks for the media kit. |
 | `created_at` | `timestamp` | `DEFAULT now()` | Creation timestamp. |
 | `updated_at` | `timestamp` | `DEFAULT now()` | Last update timestamp. |
 | `deleted_at` | `timestamp` | | Soft delete timestamp. |
@@ -183,3 +184,15 @@ interface AnalyticsHistoryItem {
   watchTimeMinutes: number;
 }
 ```
+
+### KitBlock
+```typescript
+type KitBlock =
+  | { id: string; type: "profile"; data: ProfileBlockData }
+  | { id: string; type: "stats"; data: StatsBlockData }
+  | { id: string; type: "chart"; data: ChartBlockData }
+  | { id: string; type: "separator"; data: SeparatorBlockData }
+  | { id: string; type: "custom"; data: CustomBlockData }
+  | { id: string; type: "contact"; data: ContactBlockData };
+```
+

@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "drizzle-orm": "catalog:db",
-    "@supabase/supabase-js": "catalog:db"
+    "@supabase/supabase-js": "catalog:db",
+    "@repo/utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/config": "workspace:*",
