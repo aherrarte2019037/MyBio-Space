@@ -3,7 +3,7 @@
 import { Button, Card, CardContent, CardHeader, CardTitle, Input, Label } from "@repo/ui";
 import { Loader2 } from "lucide-react";
 import { useActionState, useState } from "react";
-import { type UpdateThemeState, updateKitTheme } from "@/app/editor/actions";
+import { type UpdateState, updateKitTheme } from "@/app/editor/actions";
 
 interface EditorFormProps {
   kitId: string;
@@ -11,7 +11,7 @@ interface EditorFormProps {
   initialRadius: number;
 }
 
-const initialState: UpdateThemeState = {};
+const initialState: UpdateState = {};
 
 export function EditorForm({ kitId, initialPrimary, initialRadius }: EditorFormProps) {
   const [state, action, isPending] = useActionState(updateKitTheme, initialState);
@@ -90,14 +90,14 @@ export function EditorForm({ kitId, initialPrimary, initialRadius }: EditorFormP
 
               <button
                 type="button"
-                className="w-full h-10 px-4 py-2 flex items-center justify-center rounded-(--radius) bg-primary text-white font-medium shadow-sm transition-colors"
+                className="w-full h-10 px-4 py-2 flex items-center justify-center rounded-lg bg-primary text-white font-medium shadow-sm transition-colors"
               >
                 Work With Me
               </button>
 
               <div className="grid grid-cols-2 gap-3">
-                <div className="h-24 bg-white dark:bg-slate-900 border rounded-(--radius) p-4 shadow-sm" />
-                <div className="h-24 bg-white dark:bg-slate-900 border rounded-(--radius) p-4 shadow-sm" />
+                <div className="h-24 bg-white dark:bg-slate-900 border rounded-lg p-4 shadow-sm" />
+                <div className="h-24 bg-white dark:bg-slate-900 border rounded-lg p-4 shadow-sm" />
               </div>
             </div>
           </div>
