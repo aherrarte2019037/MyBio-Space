@@ -1,0 +1,28 @@
+{
+  "name": "@repo/landing",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3003",
+    "build": "next build",
+    "start": "next start",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/ui": "workspace:*",
+    "@repo/db": "workspace:*",
+    "@repo/utils": "workspace:*",
+    "next": "catalog:default",
+    "react": "catalog:default",
+    "react-dom": "catalog:default"
+  },
+  "devDependencies": {
+    "@repo/config": "workspace:*",
+    "@tailwindcss/postcss": "catalog:ui",
+    "@types/node": "catalog:default",
+    "@types/react": "catalog:default",
+    "@types/react-dom": "catalog:default",
+    "tailwindcss": "catalog:ui",
+    "typescript": "catalog:default"
+  }
+}

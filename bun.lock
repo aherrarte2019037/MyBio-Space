@@ -42,6 +42,27 @@
         "typescript": "catalog:default",
       },
     },
+    "apps/landing": {
+      "name": "@repo/landing",
+      "version": "0.1.0",
+      "dependencies": {
+        "@repo/db": "workspace:*",
+        "@repo/ui": "workspace:*",
+        "@repo/utils": "workspace:*",
+        "next": "catalog:default",
+        "react": "catalog:default",
+        "react-dom": "catalog:default",
+      },
+      "devDependencies": {
+        "@repo/config": "workspace:*",
+        "@tailwindcss/postcss": "catalog:ui",
+        "@types/node": "catalog:default",
+        "@types/react": "catalog:default",
+        "@types/react-dom": "catalog:default",
+        "tailwindcss": "catalog:ui",
+        "typescript": "catalog:default",
+      },
+    },
     "apps/profile": {
       "name": "@repo/profile",
       "version": "0.1.0",
@@ -447,6 +468,8 @@
     "@repo/dashboard": ["@repo/dashboard@workspace:apps/dashboard"],
 
     "@repo/db": ["@repo/db@workspace:packages/db"],
+
+    "@repo/landing": ["@repo/landing@workspace:apps/landing"],
 
     "@repo/profile": ["@repo/profile@workspace:apps/profile"],
 
