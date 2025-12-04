@@ -19,7 +19,7 @@ export const StatsSchema = z.object({
 export const ChartSchema = z.object({
   provider: z.enum(ProviderList),
   metric: z.enum([...YouTubeChartMetricsList, ...InstagramChartMetricsList]),
-  days: z.number().min(7).max(365).default(30),
+  days: z.coerce.number().min(7).max(365).default(30),
 });
 
 export const CustomSchema = z.object({

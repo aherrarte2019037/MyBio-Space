@@ -113,9 +113,6 @@ export function BlockConfig({ block, onSave, onCancel }: Props) {
                   name="days"
                   label="Time Range (Days)"
                   type="number"
-                  min={7}
-                  max={365}
-                  onChange={(e) => form.setValue("days", Number(e.target.value))}
                 />
               </div>
             );
