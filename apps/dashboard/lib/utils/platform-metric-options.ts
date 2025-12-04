@@ -1,15 +1,17 @@
+import type {
+  InstagramChartMetric,
+  InstagramStatMetric,
+  YouTubeChartMetric,
+  YouTubeStatMetric,
+} from "@repo/db/schema/analytics.sql";
+import type { StatsOrChartBlockType } from "@repo/db/schema/media-kits.sql";
 import {
-  type InstagramChartMetric,
-  InstagramChartMetrics,
-  type InstagramStatMetric,
-  InstagramStatMetrics,
+  InstagramChartMetricsList,
+  InstagramStatMetricsList,
   ProviderList,
-  type StatsOrChartBlockType,
-  type YouTubeChartMetric,
-  YouTubeChartMetrics,
-  type YouTubeStatMetric,
-  YouTubeStatMetrics,
-} from "@repo/db";
+  YouTubeChartMetricsList,
+  YouTubeStatMetricsList,
+} from "@repo/db/schema/schema.constants";
 
 type AllMetrics =
   | YouTubeStatMetric
@@ -49,12 +51,12 @@ function getOptions(metrics: readonly AllMetrics[]) {
 export function getProviderMetricOptions(provider: string, blockType: StatsOrChartBlockType) {
   switch (provider) {
     case "youtube":
-      if (blockType === "stats") return getOptions(YouTubeStatMetrics);
-      if (blockType === "chart") return getOptions(YouTubeChartMetrics);
+      if (blockType === "stats") return getOptions(YouTubeStatMetricsList);
+      if (blockType === "chart") return getOptions(YouTubeChartMetricsList);
       break;
     case "instagram":
-      if (blockType === "stats") return getOptions(InstagramStatMetrics);
-      if (blockType === "chart") return getOptions(InstagramChartMetrics);
+      if (blockType === "stats") return getOptions(InstagramStatMetricsList);
+      if (blockType === "chart") return getOptions(InstagramChartMetricsList);
       break;
   }
   return [];

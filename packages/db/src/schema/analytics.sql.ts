@@ -3,10 +3,10 @@ import { jsonb, pgPolicy, pgTable, text, uuid } from "drizzle-orm/pg-core";
 import { Profiles } from "./account.sql";
 import { connectedAccountProvider } from "./enums.sql";
 import type {
-  InstagramChartMetrics,
-  InstagramStatMetrics,
-  YouTubeChartMetrics,
-  YouTubeStatMetrics,
+  InstagramChartMetricsList,
+  InstagramStatMetricsList,
+  YouTubeChartMetricsList,
+  YouTubeStatMetricsList,
 } from "./schema.constants";
 import { timestamps } from "./schema.helpers";
 
@@ -43,13 +43,13 @@ export interface InstagramHistoryItem {
 export type PlatformStats = YouTubeStats | InstagramStats;
 export type PlatformHistoryItem = YouTubeHistoryItem | InstagramHistoryItem;
 
-export type YouTubeStatMetric = (typeof YouTubeStatMetrics)[number];
+export type YouTubeStatMetric = (typeof YouTubeStatMetricsList)[number];
 
-export type InstagramStatMetric = (typeof InstagramStatMetrics)[number];
+export type InstagramStatMetric = (typeof InstagramStatMetricsList)[number];
 
-export type YouTubeChartMetric = (typeof YouTubeChartMetrics)[number];
+export type YouTubeChartMetric = (typeof YouTubeChartMetricsList)[number];
 
-export type InstagramChartMetric = (typeof InstagramChartMetrics)[number];
+export type InstagramChartMetric = (typeof InstagramChartMetricsList)[number];
 
 export const AnalyticsSnapshots = pgTable(
   "analytics_snapshots",

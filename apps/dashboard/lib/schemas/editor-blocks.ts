@@ -1,10 +1,10 @@
 import {
-  InstagramChartMetrics,
-  InstagramStatMetrics,
+  InstagramChartMetricsList,
+  InstagramStatMetricsList,
   ProviderList,
-  YouTubeChartMetrics,
-  YouTubeStatMetrics,
-} from "@repo/db";
+  YouTubeChartMetricsList,
+  YouTubeStatMetricsList,
+} from "@repo/db/schema/schema.constants";
 import { z } from "zod";
 
 export const SeparatorSchema = z.object({
@@ -13,12 +13,12 @@ export const SeparatorSchema = z.object({
 
 export const StatsSchema = z.object({
   provider: z.enum(ProviderList),
-  metric: z.enum([...YouTubeStatMetrics, ...InstagramStatMetrics]),
+  metric: z.enum([...YouTubeStatMetricsList, ...InstagramStatMetricsList]),
 });
 
 export const ChartSchema = z.object({
   provider: z.enum(ProviderList),
-  metric: z.enum([...YouTubeChartMetrics, ...InstagramChartMetrics]),
+  metric: z.enum([...YouTubeChartMetricsList, ...InstagramChartMetricsList]),
   days: z.number().min(7).max(365).default(30),
 });
 

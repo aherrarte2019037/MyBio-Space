@@ -10,6 +10,7 @@
       "@/*": ["./*"],
       "@repo/ui": ["../../packages/ui/src"],
       "@repo/db": ["../../packages/db/src"],
+      "@repo/db/*": ["../../packages/db/src/*"],
       "@repo/utils": ["../../packages/utils/src"],
       "@repo/config": ["../../packages/config"]
     }
