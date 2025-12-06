@@ -28,4 +28,15 @@ export const BillingWebhookPayloadSchema = z.object({
   }),
 });
 
+export const BillingSubscriptionSchema = z.object({
+  data: z.object({
+    attributes: z.object({
+      urls: z.object({
+        customer_portal: z.string().url(),
+      }),
+    }),
+  }),
+});
+
+export type BillingSubscription = z.infer<typeof BillingSubscriptionSchema>;
 export type BillingWebhookPayload = z.infer<typeof BillingWebhookPayloadSchema>;

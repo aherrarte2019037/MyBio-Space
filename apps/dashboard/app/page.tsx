@@ -4,7 +4,9 @@ import { getKitUrl } from "@repo/utils";
 import { desc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { When } from "react-if";
 import { CopyMediaKitLink } from "@/components/copy-media-kit-link";
+import { ManageSubscriptionButton } from "@/components/manage-subscription-button";
 import { UpgradeButton } from "@/components/upgrade-button";
 import { getCurrentUser } from "@/lib/utils/current-user";
 import { createClient } from "@/lib/utils/supabase/server";
@@ -38,7 +40,10 @@ export default async function DashboardPage() {
           </p>
         </div>
         <div className="flex gap-2 items-center">
-          {!isPro && (
+          <When condition={isPro}>
+            <ManageSubscriptionButton />
+          </When>
+          <When condition={!isPro}>
             <div className="flex gap-2">
               <UpgradeButton
                 interval="month"
@@ -57,7 +62,7 @@ export default async function DashboardPage() {
                 className="bg-amber-600 hover:bg-amber-700 text-white"
               />
             </div>
-          )}
+          </When>
         </div>
       </div>
 

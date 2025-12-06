@@ -4,6 +4,7 @@ import type { SubscriptionInterval, SubscriptionTier } from "@repo/db";
 import { Button } from "@repo/ui";
 import { getCheckoutUrl } from "@repo/utils";
 import { Loader2, Zap } from "lucide-react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { When } from "react-if";
 
@@ -27,11 +28,12 @@ export function UpgradeButton({
   className,
 }: Props) {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleCheckout = () => {
     setLoading(true);
     const url = getCheckoutUrl({ productId, variantId, userId, interval, tier });
-    window.location.href = url;
+    router.push(url);
   };
 
   return (
