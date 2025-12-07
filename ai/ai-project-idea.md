@@ -66,9 +66,6 @@ To allow tailored pitching without duplicating API costs:
 ### Infrastructure & Operations
 - **Domain**: `kyt.one`
 - **Payments**: Lemon Squeezy (Merchant of Record).
-- **Data Strategy**: "Stale-While-Revalidate" (Lazy Updates) to preserve API quota.
-
-- **Domain**: `kyt.one`
 - **Email**: Forwarding configured to personal email (Cost saving).
     - `admin@kyt.one`
     - `contact@kyt.one`
@@ -81,7 +78,52 @@ To allow tailored pitching without duplicating API costs:
 | Aspect | Implementation |
 |--------|----------------|
 | **Frontend Layout** | Vertical Stack of Shadcn/UI Cards (Mobile First) |
-| **Data Strategy** | **Snapshot Pattern** (Cron -> DB -> Client) |
+| **Data Strategy** | **Snapshot Pattern** (Cron + Lazy Updates) |
 | **Data Schema** | `users` -> `kits` (JSONB Blocks) -> `snapshots` (API Data) |
 | **Theming** | Runtime CSS Variables (`--primary`) injected via Style tag |
 | **Performance** | Next.js 15 ISR or Aggressive Caching (Lighthouse 100) |
+
+---
+
+## 5. Data Refresh Architecture (Hybrid Model)
+
+We use a hybrid system designed to balance **Performance (Speed)**, **Cost (API Quota)**, and **Data Integrity (History)**.
+
+### 1. The "Lazy Update" Flow (Stale-While-Revalidate)
+*Handles the "Live Data" promise for active users.*
+
+**The Scenario**:
+- **User**: Josh (Annual Pro)
+- **Rule**: Updates every **15 minutes**.
+- **State**: Last update was 20 minutes ago (Data is "Stale").
+
+**The Flow (when a Brand visits `kyt.one/josh`)**:
+1.  **Instant Read**: The server fetches Josh's data from the database.
+2.  **The Check**: It sees the data is 20 minutes old (Stale).
+3.  **The Response**: It **immediately** sends the "old" (20 min) data to the browser.
+    - *Result*: The page loads in <100ms. No loading spinners.
+4.  **The Background Task**: After the response is sent, the server stays alive (using `after()`) and calls the YouTube API.
+5.  **The Update**: The new stats are saved to the database.
+6.  **The Next Visitor**: Anyone who visits 1 second later gets the **Fresh Data**.
+
+### 2. The Cron Job (Data Continuity)
+*Handles "History Gaps" for inactive users.*
+
+**The Problem**:
+If we *only* used Lazy Updates, we would have "History Gaps."
+- **Scenario**: Josh goes on vacation for 3 weeks. No one visits his link.
+- **Result**: No API calls are made for 21 days.
+- **The Chart**: When he returns, his "30-Day Growth" graph has a flat line or gap.
+
+**The Solution**:
+- **Schedule**: Runs once every **24 hours** (Midnight).
+- **Action**: Forces an update for everyone, regardless of traffic.
+- **Cost**: 1 API Unit per user/day.
+- **Result**: Even if Josh is inactive, we capture his daily stats. His history graph remains continuous.
+
+### Summary of Costs
+
+| Mechanism | Purpose | Frequency | Cost (Quota) |
+| :--- | :--- | :--- | :--- |
+| **Lazy Update** | "Live" numbers for active deals. | High (On Visit) | Varies (High efficiency) |
+| **Cron Job** | Continuous history graphs. | Low (Daily) | Fixed (1 unit/user) |
