@@ -1,7 +1,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { db, Profiles } from "@repo/db";
+import { db, MediaKits, Profiles } from "@repo/db";
 import { Subscriptions } from "@repo/db/schema/subscriptions.sql";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { type BillingWebhookPayload, BillingWebhookPayloadSchema } from "@/lib/schemas/billing";
@@ -103,6 +103,15 @@ async function handleSubscriptionEnd(payload: BillingWebhookPayload) {
 
   if (!sub) return;
 
+  // Set user to free tier
   await db.update(Profiles).set({ tier: "free" }).where(eq(Profiles.id, sub.userId));
+
+  // Set all non-default media kits to unpublished
+  await db
+    .update(MediaKits)
+    .set({ published: false })
+    .where(and(eq(MediaKits.userId, sub.userId), eq(MediaKits.default, false)));
+
+  // Delete subscription
   await db.delete(Subscriptions).where(eq(Subscriptions.id, sub.id));
 }
