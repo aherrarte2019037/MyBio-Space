@@ -1,8 +1,8 @@
 import { AccountsDueForUpdate, db } from "@repo/db";
+import { fetchAndSaveYouTubeStats } from "@repo/utils/server";
 import { addMinutes, isBefore } from "date-fns";
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
-import { fetchAndSaveYouTubeStats } from "@/lib/services/youtube";
 
 export const dynamic = "force-dynamic";
 

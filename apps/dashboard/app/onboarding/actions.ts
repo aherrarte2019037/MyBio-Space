@@ -1,8 +1,8 @@
 "use server";
 
+import { createDefaultKit } from "@repo/utils/server";
 import { redirect } from "next/navigation";
 import { OnboardingUsernameSchema, type OnboardingUsernameValues } from "@/lib/schemas/onboarding";
-import { createDefaultKit } from "@/lib/services/media-kit";
 import { getCurrentUser } from "@/lib/utils/current-user";
 import { createClient } from "@/lib/utils/supabase/server";
 

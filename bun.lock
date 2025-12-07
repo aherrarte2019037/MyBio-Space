@@ -163,6 +163,10 @@
       "name": "@repo/utils",
       "version": "0.0.0",
       "dependencies": {
+        "@repo/db": "workspace:*",
+        "date-fns": "catalog:default",
+        "drizzle-orm": "catalog:db",
+        "googleapis": "catalog:default",
         "nanoid": "catalog:utils",
         "zod": "catalog:default",
       },

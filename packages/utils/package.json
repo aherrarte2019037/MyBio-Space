@@ -5,12 +5,23 @@
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./server": "./src/server.ts"
+  },
+  "files": [
+    "src"
+  ],
   "scripts": {
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "zod": "catalog:default",
-    "nanoid": "catalog:utils"
+    "nanoid": "catalog:utils",
+    "@repo/db": "workspace:*",
+    "date-fns": "catalog:default",
+    "drizzle-orm": "catalog:db",
+    "googleapis": "catalog:default"
   },
   "devDependencies": {
     "@repo/config": "workspace:*",

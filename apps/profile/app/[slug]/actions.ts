@@ -1,10 +1,10 @@
 "use server";
 
 import { type AnalyticsProvider, AnalyticsSnapshots, db, MediaKits, Profiles } from "@repo/db";
+import { fetchAndSaveYouTubeStats } from "@repo/utils/server";
 import { differenceInMinutes } from "date-fns";
 import { and, desc, eq } from "drizzle-orm";
 import { after } from "next/server";
-import { fetchAndSaveYouTubeStats } from "@/lib/services/youtube";
 
 export async function getCreatorEmail(profileId: string) {
   const profile = await db.query.Profiles.findFirst({

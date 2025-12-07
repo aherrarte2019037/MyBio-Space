@@ -1,5 +1,5 @@
+import { fetchAndSaveYouTubeStats } from "@repo/utils/server";
 import { NextResponse } from "next/server";
-import { fetchAndSaveYouTubeStats } from "@/lib/services/youtube";
 import { createClient } from "@/lib/utils/supabase/server";
 
 export async function GET(request: Request) {
