@@ -3,7 +3,7 @@
 import { Button, Card, CardContent, CardHeader, CardTitle, Input, Label } from "@repo/ui";
 import { Loader2 } from "lucide-react";
 import { useActionState, useState } from "react";
-import { type UpdateState, updateKitTheme } from "@/app/editor/actions";
+import { type UpdateState, updateKitThemeAction } from "@/app/editor/actions";
 
 interface EditorFormProps {
   kitId: string;
@@ -14,7 +14,7 @@ interface EditorFormProps {
 const initialState: UpdateState = {};
 
 export function EditorForm({ kitId, initialPrimary, initialRadius }: EditorFormProps) {
-  const [state, action, isPending] = useActionState(updateKitTheme, initialState);
+  const [state, action, isPending] = useActionState(updateKitThemeAction, initialState);
   const [primary, setPrimary] = useState(initialPrimary);
   const [radius, setRadius] = useState(initialRadius);
 

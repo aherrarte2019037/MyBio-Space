@@ -35,7 +35,7 @@ import {
 import { Plus } from "lucide-react";
 import { useState, useTransition } from "react";
 import { When } from "react-if";
-import { updateKitBlocks } from "@/app/editor/actions";
+import { updateKitBlocksAction } from "@/app/editor/actions";
 import { BlockConfig } from "./block-config";
 import { SortableBlock } from "./sortable-block";
 
@@ -85,7 +85,7 @@ export function BlocksEditor({ kitId, initialBlocks }: Props) {
 
   const saveBlocks = (newBlocks: KitBlock[]) => {
     startTransition(async () => {
-      await updateKitBlocks(kitId, newBlocks);
+      await updateKitBlocksAction(kitId, newBlocks);
     });
   };
 

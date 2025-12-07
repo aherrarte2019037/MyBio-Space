@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlockRenderer } from "@/components/block-renderer";
-import { getPublishedMediaKit } from "./actions";
+import { getPublishedKitAction } from "./actions";
 
 interface PageProps {
   params: Promise<{
@@ -11,7 +11,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const data = await getPublishedMediaKit(slug);
+  const data = await getPublishedKitAction(slug);
 
   if (!data) return { title: "Not Found | Kyt" };
 
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function MediaKitPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const data = await getPublishedMediaKit(slug);
+  const data = await getPublishedKitAction(slug);
   if (!data) notFound();
 
   const { kit, profile, analyticsProvider } = data;

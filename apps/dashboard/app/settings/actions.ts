@@ -7,7 +7,7 @@ import { BillingSubscriptionSchema } from "@/lib/schemas/billing";
 import { getCurrentUser } from "@/lib/utils/current-user";
 import { createClient } from "@/lib/utils/supabase/server";
 
-export async function getManageSubscriptionUrl() {
+export async function getManageBillingUrlAction() {
   const supabase = await createClient();
   const user = await getCurrentUser(supabase);
 

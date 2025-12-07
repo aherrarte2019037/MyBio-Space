@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useState, useTransition } from "react";
 import { When } from "react-if";
 import { useCopyToClipboard } from "usehooks-ts";
-import { getCreatorEmail } from "@/app/[slug]/actions";
+import { getCreatorEmailAction } from "@/app/[slug]/actions";
 
 interface Props {
   profileId: string;
@@ -25,7 +25,7 @@ export function ContactBlock({ profileId, data, className }: Props) {
     if (email) return;
 
     startTransition(async () => {
-      const result = await getCreatorEmail(profileId);
+      const result = await getCreatorEmailAction(profileId);
       if (result.email) setEmail(result.email);
     });
   };

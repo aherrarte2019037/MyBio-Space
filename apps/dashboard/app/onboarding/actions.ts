@@ -17,7 +17,7 @@ export type WelcomeStepActionState = {
   error?: string;
 };
 
-export async function completeUsernameStep(
+export async function completeUsernameStepAction(
   data: OnboardingUsernameValues
 ): Promise<UsernameStepActionState> {
   const supabase = await createClient();
@@ -67,7 +67,7 @@ export async function completeUsernameStep(
   redirect("/onboarding/stats");
 }
 
-export async function completeWelcomeStep(): Promise<WelcomeStepActionState> {
+export async function completeWelcomeStepAction(): Promise<WelcomeStepActionState> {
   const supabase = await createClient();
   const user = await getCurrentUser(supabase);
 

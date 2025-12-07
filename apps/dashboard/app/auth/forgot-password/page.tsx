@@ -13,7 +13,7 @@ import {
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { ForgotPasswordSchema, type ForgotPasswordValues } from "@/lib/schemas/auth";
-import { forgotPassword } from "../actions";
+import { forgotPasswordAction } from "../actions";
 
 export default function ForgotPasswordPage() {
   const {
@@ -31,7 +31,7 @@ export default function ForgotPasswordPage() {
     const formData = new FormData();
     formData.append("email", data.email);
 
-    await forgotPassword(formData);
+    await forgotPasswordAction(formData);
   };
 
   return (

@@ -3,7 +3,7 @@
 import { Button, Card, CardContent } from "@repo/ui";
 import { BarChart3, CheckCircle2, ShieldCheck, Zap } from "lucide-react";
 import { useState, useTransition } from "react";
-import { completeWelcomeStep } from "../actions";
+import { completeWelcomeStepAction } from "../actions";
 
 export default function OnboardingFinalPage() {
   const [isPending, startTransition] = useTransition();
@@ -11,7 +11,7 @@ export default function OnboardingFinalPage() {
 
   const handleFinish = () => {
     startTransition(async () => {
-      const result = await completeWelcomeStep();
+      const result = await completeWelcomeStepAction();
 
       if (result.error) setError(result.error);
     });

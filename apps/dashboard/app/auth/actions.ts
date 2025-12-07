@@ -4,7 +4,7 @@ import { getSiteUrl } from "@repo/utils";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/utils/supabase/server";
 
-export async function signInWithGoogle() {
+export async function signInWithGoogleAction() {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
@@ -22,7 +22,7 @@ export async function signInWithGoogle() {
   }
 }
 
-export async function signUpWithEmail(formData: FormData) {
+export async function signUpWithEmailAction(formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const supabase = await createClient();
@@ -42,7 +42,7 @@ export async function signUpWithEmail(formData: FormData) {
   return redirect(`/auth/sign-in?message=Check email to continue sign in process`);
 }
 
-export async function signInWithEmail(formData: FormData) {
+export async function signInWithEmailAction(formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const supabase = await createClient();
@@ -59,7 +59,7 @@ export async function signInWithEmail(formData: FormData) {
   return redirect("/");
 }
 
-export async function forgotPassword(formData: FormData) {
+export async function forgotPasswordAction(formData: FormData) {
   const email = formData.get("email") as string;
   const supabase = await createClient();
 
@@ -74,7 +74,7 @@ export async function forgotPassword(formData: FormData) {
   return redirect("/auth/forgot-password?message=Check email to reset password");
 }
 
-export async function resetPassword(formData: FormData) {
+export async function resetPasswordAction(formData: FormData) {
   const password = formData.get("password") as string;
   const confirmPassword = formData.get("confirmPassword") as string;
   const supabase = await createClient();
@@ -94,7 +94,7 @@ export async function resetPassword(formData: FormData) {
   return redirect("/auth/sign-in");
 }
 
-export async function signOut() {
+export async function signOutAction() {
   const supabase = await createClient();
   await supabase.auth.signOut();
   return redirect("/auth/sign-in");

@@ -12,7 +12,7 @@ import {
 } from "@repo/ui";
 import { useForm } from "react-hook-form";
 import { UpdatePasswordSchema, type UpdatePasswordValues } from "@/lib/schemas/auth";
-import { resetPassword } from "../actions";
+import { resetPasswordAction } from "../actions";
 
 export default function ResetPasswordPage() {
   const {
@@ -32,7 +32,7 @@ export default function ResetPasswordPage() {
     formData.append("password", data.password);
     formData.append("confirmPassword", data.confirmPassword);
 
-    await resetPassword(formData);
+    await resetPasswordAction(formData);
   };
 
   return (

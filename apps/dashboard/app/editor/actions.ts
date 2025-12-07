@@ -26,7 +26,7 @@ export type UpdateState = {
   success?: boolean;
 };
 
-export async function updateKitTheme(
+export async function updateKitThemeAction(
   _prevState: UpdateState,
   formData: FormData
 ): Promise<UpdateState> {
@@ -62,7 +62,10 @@ export async function updateKitTheme(
   }
 }
 
-export async function updateKitBlocks(kitId: string, blocks: KitBlock[]): Promise<UpdateState> {
+export async function updateKitBlocksAction(
+  kitId: string,
+  blocks: KitBlock[]
+): Promise<UpdateState> {
   const supabase = await createClient();
   const user = await getCurrentUser(supabase);
 

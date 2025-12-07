@@ -13,7 +13,7 @@ import {
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { SignUpSchema, type SignUpValues } from "@/lib/schemas/auth";
-import { signInWithGoogle, signUpWithEmail } from "../actions";
+import { signInWithGoogleAction, signUpWithEmailAction } from "../actions";
 
 export default function SignUpPage() {
   const {
@@ -34,7 +34,7 @@ export default function SignUpPage() {
     formData.append("email", data.email);
     formData.append("password", data.password);
 
-    await signUpWithEmail(formData);
+    await signUpWithEmailAction(formData);
   };
 
   return (
@@ -85,7 +85,7 @@ export default function SignUpPage() {
             </div>
           </div>
 
-          <form action={signInWithGoogle}>
+          <form action={signInWithGoogleAction}>
             <Button variant="outline" type="submit" className="w-full">
               Google
             </Button>

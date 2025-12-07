@@ -6,7 +6,7 @@ import { differenceInMinutes } from "date-fns";
 import { and, desc, eq } from "drizzle-orm";
 import { after } from "next/server";
 
-export async function getCreatorEmail(profileId: string) {
+export async function getCreatorEmailAction(profileId: string) {
   const profile = await db.query.Profiles.findFirst({
     where: eq(Profiles.id, profileId),
     columns: {
@@ -19,7 +19,7 @@ export async function getCreatorEmail(profileId: string) {
   return { email: profile.email };
 }
 
-export async function getPublishedMediaKit(slug: string) {
+export async function getPublishedKitAction(slug: string) {
   const kitData = await db.query.MediaKits.findFirst({
     where: and(eq(MediaKits.slug, slug), eq(MediaKits.published, true)),
     with: {
