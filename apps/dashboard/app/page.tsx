@@ -68,12 +68,12 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {kits.map((kit) => (
           <Card key={kit.id} className={kit.default ? "border-primary/20 bg-muted/10" : ""}>
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex justify-between items-center">
-                <span>{kit.default ? "Primary Kit" : `/${kit.slug}`}</span>
+                <span>{getKitUrl({ kit, profile, includeBase: false })}</span>
                 {kit.default && (
                   <span className="text-xs font-normal px-2 py-1 bg-primary/10 rounded-full">
                     Default
@@ -82,9 +82,7 @@ export default async function DashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <CopyMediaKitLink
-                url={getKitUrl(profile.username + (kit.default ? "" : `/${kit.slug}`))}
-              />
+              <CopyMediaKitLink url={getKitUrl({ kit, profile })} />
               <Button variant="outline" className="w-full" asChild>
                 <Link href={`/editor?kitId=${kit.id}`}>Edit Kit</Link>
               </Button>

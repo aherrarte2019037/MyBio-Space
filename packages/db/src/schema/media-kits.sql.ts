@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { type InferSelectModel, sql } from "drizzle-orm";
 import { boolean, jsonb, pgPolicy, pgTable, text, uuid } from "drizzle-orm/pg-core";
 import { Profiles } from "./account.sql";
 import type {
@@ -96,3 +96,5 @@ export const MediaKits = pgTable(
     }),
   ]
 );
+
+export type MediaKit = InferSelectModel<typeof MediaKits>;

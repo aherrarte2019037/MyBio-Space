@@ -3,7 +3,6 @@
 import {
   Button,
   Input,
-  Label,
   Sheet,
   SheetContent,
   SheetDescription,
@@ -43,33 +42,27 @@ export function CreateKitButton({ isPro }: { isPro: boolean }) {
   return (
     <>
       <Button onClick={() => setOpen(true)} size="sm">
-        <Plus className="mr-2 size-4" /> New Kit
+        <Plus size={16} /> New Kit
       </Button>
 
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Create New Media Kit</SheetTitle>
+            <SheetTitle>Create New Kit</SheetTitle>
             <SheetDescription>
               Create a tailored kit for a specific sponsor or campaign.
             </SheetDescription>
           </SheetHeader>
           <div className="py-6 space-y-4">
-            <div className="space-y-2">
-              <Label>Kit URL Slug</Label>
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground whitespace-nowrap">
-                  kyt.one/user/
-                </span>
-                <Input
-                  placeholder="gaming"
-                  value={slug}
-                  onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""))}
-                />
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Final URL: kyt.one/username/{slug || "slug"}
-              </p>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground whitespace-nowrap">
+                kyt.one/username/
+              </span>
+              <Input
+                placeholder="gaming"
+                value={slug}
+                onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""))}
+              />
             </div>
 
             <When condition={!isPro}>
