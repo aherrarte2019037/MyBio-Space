@@ -1,5 +1,5 @@
 import { type InferSelectModel, sql } from "drizzle-orm";
-import { boolean, jsonb, pgPolicy, pgTable, text, uuid } from "drizzle-orm/pg-core";
+import { boolean, jsonb, pgPolicy, pgTable, text, unique, uuid } from "drizzle-orm/pg-core";
 import { Profiles } from "./account.sql";
 import type {
   InstagramChartMetric,
@@ -66,7 +66,7 @@ export const MediaKits = pgTable(
     userId: uuid("user_id")
       .notNull()
       .references(() => Profiles.id, { onDelete: "cascade" }),
-    slug: text("slug").notNull().unique(),
+    slug: text("slug").notNull(),
     published: boolean("published").default(false).notNull(),
     default: boolean("default").default(false).notNull(),
     theme: jsonb("theme").$type<MediaKitTheme>().notNull().default(DefaultKitTheme),
@@ -74,6 +74,7 @@ export const MediaKits = pgTable(
     ...timestamps,
   },
   (table) => [
+    unique("user_kit_slug_unique").on(table.userId, table.slug),
     pgPolicy("Public can view published kits", {
       for: "select",
       using: sql`${table.published} = true`,

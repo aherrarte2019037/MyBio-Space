@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useState, useTransition } from "react";
 import { When } from "react-if";
 import { useCopyToClipboard } from "usehooks-ts";
-import { getCreatorEmailAction } from "@/app/[slug]/actions";
+import { getCreatorEmailAction } from "@/app/[...slug]/actions";
 
 interface Props {
   profileId: string;

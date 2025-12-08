@@ -19,9 +19,23 @@ export async function getCreatorEmailAction(profileId: string) {
   return { email: profile.email };
 }
 
-export async function getPublishedKitAction(slug: string) {
-  const kitData = await db.query.MediaKits.findFirst({
-    where: and(eq(MediaKits.slug, slug), eq(MediaKits.published, true)),
+export async function getPublishedKitAction(username: string, slug?: string) {
+  console.log("slug", slug);
+  console.log("username", username);
+
+  const profile = await db.query.Profiles.findFirst({
+    where: eq(Profiles.username, username),
+    columns: { id: true },
+  });
+
+  if (!profile) return null;
+
+  const kit = await db.query.MediaKits.findFirst({
+    where: and(
+      eq(MediaKits.userId, profile.id),
+      eq(MediaKits.published, true),
+      slug ? eq(MediaKits.slug, slug) : eq(MediaKits.default, true)
+    ),
     with: {
       profile: {
         with: {
@@ -32,12 +46,12 @@ export async function getPublishedKitAction(slug: string) {
     },
   });
 
-  if (!kitData) return null;
+  if (!kit) return null;
 
   const latestSnapshots = await db
     .selectDistinctOn([AnalyticsSnapshots.provider])
     .from(AnalyticsSnapshots)
-    .where(eq(AnalyticsSnapshots.userId, kitData.profile.id))
+    .where(eq(AnalyticsSnapshots.userId, kit.profile.id))
     .orderBy(AnalyticsSnapshots.provider, desc(AnalyticsSnapshots.createdAt));
 
   const analyticsProvider: AnalyticsProvider = {};
@@ -54,8 +68,8 @@ export async function getPublishedKitAction(slug: string) {
         const now = new Date();
         const diffMins = differenceInMinutes(now, lastUpdate);
 
-        const tier = kitData.profile.tier;
-        const interval = kitData.profile.subscription?.interval;
+        const tier = kit.profile.tier;
+        const interval = kit.profile.subscription?.interval;
 
         let isStale = false;
 
@@ -67,12 +81,12 @@ export async function getPublishedKitAction(slug: string) {
         else if (tier === "free" && diffMins > 1440) isStale = true;
 
         if (isStale) {
-          const account = kitData.profile.connectedAccounts.find((a) => a.provider === "youtube");
+          const account = kit.profile.connectedAccounts.find((a) => a.provider === "youtube");
 
           if (account) {
             after(async () => {
               await fetchAndSaveYouTubeStats(
-                kitData.profile.id,
+                kit.profile.id,
                 account.accessToken,
                 account.refreshToken
               );
@@ -83,11 +97,11 @@ export async function getPublishedKitAction(slug: string) {
     }
   }
 
-  const { profile, ...kit } = kitData;
+  const { profile: fullProfile, ...kitData } = kit;
 
   return {
-    kit,
-    profile,
+    kit: kitData,
+    profile: fullProfile,
     analyticsProvider,
   };
 }

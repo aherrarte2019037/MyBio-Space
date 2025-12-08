@@ -10,8 +10,12 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const data = await getPublishedKitAction(slug);
+  const { slug: slugParams } = await params;
+
+  const username = slugParams[0];
+  const slug = slugParams[1];
+
+  const data = await getPublishedKitAction(username, slug);
 
   if (!data) return { title: "Not Found | Kyt" };
 
@@ -29,9 +33,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function MediaKitPage({ params }: PageProps) {
-  const { slug } = await params;
+  const { slug: slugParams } = await params;
 
-  const data = await getPublishedKitAction(slug);
+  const username = slugParams[0];
+  const slug = slugParams[1];
+
+  const data = await getPublishedKitAction(username, slug);
   if (!data) notFound();
 
   const { kit, profile, analyticsProvider } = data;
