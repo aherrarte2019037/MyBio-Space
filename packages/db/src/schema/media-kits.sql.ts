@@ -12,6 +12,8 @@ import { DefaultKitTheme, timestamps } from "./schema.helpers";
 
 export interface ProfileBlockData {
   displayName?: string;
+  tagline?: string;
+  customAvatarUrl?: string;
 }
 
 export type StatsBlockData = {

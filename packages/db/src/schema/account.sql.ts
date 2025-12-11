@@ -18,6 +18,7 @@ export const Profiles = pgTable(
     email: text("email").notNull(),
     username: text("username").unique().notNull().default(""),
     tier: subscriptionTier("tier").default("free").notNull(),
+    avatarUrl: text("avatar_url").notNull().default(""),
     onboardingSteps: onboardingSteps("onboarding_steps").array().default([]).notNull(),
     ...timestamps,
   },

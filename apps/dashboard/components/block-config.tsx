@@ -6,7 +6,6 @@ import { Button, FormInput, FormSelect } from "@repo/ui";
 import { useEffect } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { Case, Default, Switch } from "react-if";
-import { getProviderMetricOptions, ProviderOptions } from "@/lib/utils/platform-metric-options";
 import {
   ChartSchema,
   ContactSchema,
@@ -14,7 +13,9 @@ import {
   ProfileSchema,
   SeparatorSchema,
   StatsSchema,
-} from "../lib/schemas/editor-blocks";
+} from "@/lib/schemas/editor-blocks";
+import { getProviderMetricOptions, ProviderOptions } from "@/lib/utils/platform-metric-options";
+import { AvatarImageUpload } from "./avatar-image-upload";
 
 interface Props {
   block: KitBlock;
@@ -40,6 +41,11 @@ export function BlockConfig({ block, onSave, onCancel }: Props) {
   const selectedProvider = useWatch({
     control: form.control,
     name: "provider",
+  });
+
+  const customAvatarUrl = useWatch({
+    control: form.control,
+    name: "customAvatarUrl",
   });
 
   useEffect(() => {
@@ -167,12 +173,37 @@ export function BlockConfig({ block, onSave, onCancel }: Props) {
         </Case>
 
         <Case condition={block.type === "profile"}>
-          <FormInput
-            control={form.control}
-            name="displayName"
-            label="Display Name Override"
-            placeholder="Leave empty to use username"
-          />
+          <div className="space-y-6">
+            <div className="space-y-3">
+              <label
+                htmlFor="customAvatarUrl"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Profile Picture
+              </label>
+              <AvatarImageUpload
+                value={customAvatarUrl}
+                onChange={(url) => form.setValue("customAvatarUrl", url, { shouldDirty: true })}
+              />
+              <p className="text-xs text-muted-foreground">
+                Leave empty to use your default profile picture.
+              </p>
+            </div>
+
+            <FormInput
+              control={form.control}
+              name="displayName"
+              label="Display Name Override"
+              placeholder="e.g. Josh | Tech Content"
+            />
+
+            <FormInput
+              control={form.control}
+              name="tagline"
+              label="Tagline"
+              placeholder="e.g. Helping devs build faster."
+            />
+          </div>
         </Case>
 
         <Default>

@@ -37,6 +37,8 @@ export const ContactSchema = z.object({
 
 export const ProfileSchema = z.object({
   displayName: z.string().optional(),
+  tagline: z.string().optional(),
+  customAvatarUrl: z.string().optional(),
 });
 
 export const BlockSchema = z.discriminatedUnion("type", [
