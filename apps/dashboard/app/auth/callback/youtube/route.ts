@@ -1,4 +1,4 @@
-import { fetchAndSaveYouTubeStats } from "@repo/utils/server";
+import { YouTubeService } from "@repo/utils/server";
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/utils/supabase/server";
 
@@ -28,7 +28,11 @@ export async function GET(request: Request) {
   }
 
   try {
-    await fetchAndSaveYouTubeStats(data.session.user.id, providerToken, providerRefreshToken);
+    await YouTubeService.fetchAndSaveStats(
+      data.session.user.id,
+      providerToken,
+      providerRefreshToken
+    );
     await supabase.rpc("complete_onboarding_step", {
       step_name: "stats",
     });

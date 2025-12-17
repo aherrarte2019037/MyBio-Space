@@ -1,6 +1,6 @@
 "use server";
 
-import { createDefaultKit } from "@repo/utils/server";
+import { MediaKitService } from "@repo/utils/server";
 import { redirect } from "next/navigation";
 import {
   OnboardingAvatarSchema,
@@ -116,7 +116,7 @@ export async function completeWelcomeStepAction(): Promise<WelcomeStepActionStat
 
   if (!user) redirect("/auth/sign-in");
 
-  await createDefaultKit(user.id);
+  await MediaKitService.createDefault(user.id);
 
   const { error: rpcError } = await supabase.rpc("complete_onboarding_step", {
     step_name: "welcome",

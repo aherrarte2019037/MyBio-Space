@@ -2,7 +2,7 @@
 
 import { db, type KitBlock, MediaKits } from "@repo/db";
 import { HexColorSchema } from "@repo/utils";
-import { createNewKit } from "@repo/utils/server";
+import { MediaKitService } from "@repo/utils/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -102,7 +102,7 @@ export async function createNewKitAction(slug: string) {
   if (!user) return { error: "Unauthorized" };
 
   try {
-    await createNewKit(user.id, slug);
+    await MediaKitService.createNew(user.id, slug);
     return { success: true };
   } catch (err) {
     return { error: err instanceof Error ? err.message : "Failed to create kit" };

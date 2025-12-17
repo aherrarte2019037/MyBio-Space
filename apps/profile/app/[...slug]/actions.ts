@@ -1,7 +1,7 @@
 "use server";
 
 import { type AnalyticsProvider, AnalyticsSnapshots, db, MediaKits, Profiles } from "@repo/db";
-import { fetchAndSaveYouTubeStats } from "@repo/utils/server";
+import { YouTubeService } from "@repo/utils/server";
 import { differenceInMinutes } from "date-fns";
 import { and, desc, eq } from "drizzle-orm";
 import { after } from "next/server";
@@ -85,7 +85,7 @@ export async function getPublishedKitAction(username: string, slug?: string) {
 
           if (account) {
             after(async () => {
-              await fetchAndSaveYouTubeStats(
+              await YouTubeService.fetchAndSaveStats(
                 kit.profile.id,
                 account.accessToken,
                 account.refreshToken

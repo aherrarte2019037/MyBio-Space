@@ -1,5 +1,5 @@
 import { AccountsDueForUpdateView, db } from "@repo/db";
-import { fetchAndSaveYouTubeStats } from "@repo/utils/server";
+import { YouTubeService } from "@repo/utils/server";
 import { addMinutes, isBefore } from "date-fns";
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
@@ -53,7 +53,7 @@ export async function GET(request: Request) {
             if (credentials.refresh_token) refreshToken = credentials.refresh_token;
           }
 
-          await fetchAndSaveYouTubeStats(account.userId, accessToken, refreshToken);
+          await YouTubeService.fetchAndSaveStats(account.userId, accessToken, refreshToken);
 
           return { userId: account.userId, status: "success" };
         } catch (error) {
