@@ -9,6 +9,7 @@ import { z } from "zod";
 import { BlockSchema } from "@/lib/schemas/editor-blocks";
 import { getCurrentUser } from "@/lib/utils/current-user";
 import { createClient } from "@/lib/utils/supabase/server";
+import { Now } from "../../../../packages/utils/src/current-date";
 
 const UpdateThemeSchema = z.object({
   kitId: z.string().uuid(),
@@ -51,7 +52,7 @@ export async function updateKitThemeAction(
       .update(MediaKits)
       .set({
         theme: { primary, radius },
-        updatedAt: new Date(),
+        updatedAt: Now(),
       })
       .where(and(eq(MediaKits.id, kitId), eq(MediaKits.userId, user.id)));
 
@@ -83,7 +84,7 @@ export async function updateKitBlocksAction(
       .update(MediaKits)
       .set({
         blocks: validated.data.blocks,
-        updatedAt: new Date(),
+        updatedAt: Now(),
       })
       .where(and(eq(MediaKits.id, kitId), eq(MediaKits.userId, user.id)));
 

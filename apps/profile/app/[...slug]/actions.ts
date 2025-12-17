@@ -5,6 +5,7 @@ import { fetchAndSaveYouTubeStats } from "@repo/utils/server";
 import { differenceInMinutes } from "date-fns";
 import { and, desc, eq } from "drizzle-orm";
 import { after } from "next/server";
+import { Now } from "../../../../packages/utils/src/current-date";
 
 export async function getCreatorEmailAction(profileId: string) {
   const profile = await db.query.Profiles.findFirst({
@@ -65,8 +66,7 @@ export async function getPublishedKitAction(username: string, slug?: string) {
     switch (snap.provider) {
       case "youtube": {
         const lastUpdate = snap.updatedAt;
-        const now = new Date();
-        const diffMins = differenceInMinutes(now, lastUpdate);
+        const diffMins = differenceInMinutes(Now(), lastUpdate);
 
         const tier = kit.profile.tier;
         const interval = kit.profile.subscription?.interval;

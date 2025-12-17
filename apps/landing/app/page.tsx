@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Now } from "../../../packages/utils/src/current-date";
 
 export default function Page() {
   return (
@@ -177,7 +178,7 @@ export default function Page() {
             </Link>
           </div>
           <p className="mt-8 text-xs text-gray-500">
-            &copy; {new Date().getFullYear()} Kyt LLC. All rights reserved.
+            &copy; {Now().getFullYear()} Kyt LLC. All rights reserved.
           </p>
         </div>
       </footer>

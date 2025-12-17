@@ -3,6 +3,7 @@ import { fetchAndSaveYouTubeStats } from "@repo/utils/server";
 import { addMinutes, isBefore } from "date-fns";
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
+import { Now } from "../../../../../../packages/utils/src/current-date";
 
 export const dynamic = "force-dynamic";
 
@@ -41,8 +42,7 @@ export async function GET(request: Request) {
             refresh_token: account.refreshToken,
           });
 
-          const now = new Date();
-          const isExpired = !account.expiresAt || isBefore(account.expiresAt, addMinutes(now, 5));
+          const isExpired = !account.expiresAt || isBefore(account.expiresAt, addMinutes(Now(), 5));
 
           let accessToken = account.accessToken;
           let refreshToken = account.refreshToken;

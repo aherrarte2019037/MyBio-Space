@@ -9,6 +9,7 @@ import { addSeconds, format, subDays } from "date-fns";
 import { and, eq } from "drizzle-orm";
 import { google } from "googleapis";
 import { z } from "zod";
+import { Now } from "../current-date";
 
 const oauth2Client = new google.auth.OAuth2(
   process.env.SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID,
@@ -61,14 +62,14 @@ export async function fetchAndSaveYouTubeStats(
 
   const channelId = channel.id || "";
 
-  const today = new Date();
-  const thirtyDaysAgo = subDays(today, 30);
+  const now = Now();
+  const thirtyDaysAgo = subDays(now, 30);
   const apiDateFormat = "yyyy-MM-dd";
 
   const analyticsResponse = await analytics.reports.query({
     ids: "channel==MINE",
     startDate: format(thirtyDaysAgo, apiDateFormat),
-    endDate: format(today, apiDateFormat),
+    endDate: format(now, apiDateFormat),
     metrics: "views,estimatedMinutesWatched,subscribersGained,likes",
     dimensions: "day",
     sort: "day",
@@ -81,8 +82,8 @@ export async function fetchAndSaveYouTubeStats(
   const accountData = {
     accessToken,
     ...(refreshToken && { refreshToken }),
-    expiresAt: addSeconds(new Date(), 3500),
-    updatedAt: new Date(),
+    expiresAt: addSeconds(now, 3500),
+    updatedAt: now,
   };
 
   if (existingAccount) {
@@ -133,7 +134,7 @@ export async function fetchAndSaveYouTubeStats(
       .set({
         stats,
         history,
-        updatedAt: new Date(),
+        updatedAt: now,
         platformId: channelId,
       })
       .where(eq(AnalyticsSnapshots.id, existingSnapshot.id));

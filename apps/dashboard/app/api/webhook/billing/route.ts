@@ -5,6 +5,7 @@ import { and, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { type BillingWebhookPayload, BillingWebhookPayloadSchema } from "@/lib/schemas/billing";
+import { Now } from "../../../../../../packages/utils/src/current-date";
 
 export async function POST(request: Request) {
   const secret = process.env.LEMON_SQUEEZY_WEBHOOK_SECRET;
@@ -86,7 +87,7 @@ async function handleSubscriptionChange(payload: BillingWebhookPayload) {
         priceId: variantId,
         interval: interval,
         currentPeriodEnd: new Date(renewsAt),
-        updatedAt: new Date(),
+        updatedAt: Now(),
       },
     });
 
