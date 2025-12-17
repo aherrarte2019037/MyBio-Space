@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlockRenderer } from "@/components/block-renderer";
+import { ShareButton } from "@/components/share-button";
 import { getPublishedKitAction } from "./actions";
 
 interface PageProps {
@@ -53,6 +54,8 @@ export default async function MediaKitPage({ params }: PageProps) {
         ["--radius" as string]: `${radius}rem`,
       }}
     >
+      <ShareButton className="fixed top-4 right-4" kit={kit} profile={profile} />
+
       <div className="mx-auto max-w-md space-y-4">
         {kit.blocks.map((block) => (
           <BlockRenderer
