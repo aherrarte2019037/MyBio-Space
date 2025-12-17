@@ -4,7 +4,7 @@ import { ConnectedAccounts, Profiles } from "./account.sql";
 import { connectedAccountProvider } from "./enums.sql";
 import { Subscriptions } from "./subscriptions.sql";
 
-export const AccountsDueForUpdate = pgView("accounts_due_for_update", {
+export const AccountsDueForUpdateView = pgView("accounts_due_for_update_view", {
   id: uuid("id").primaryKey(),
   userId: uuid("user_id").notNull(),
   provider: connectedAccountProvider("provider").notNull(),

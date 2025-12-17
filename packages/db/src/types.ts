@@ -102,6 +102,54 @@ export type Database = {
           },
         ];
       };
+      media_kit_events: {
+        Row: {
+          created_at: string;
+          deleted_at: string | null;
+          event_type: string;
+          id: string;
+          kit_id: string;
+          meta: Json | null;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          deleted_at?: string | null;
+          event_type: string;
+          id?: string;
+          kit_id: string;
+          meta?: Json | null;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          deleted_at?: string | null;
+          event_type?: string;
+          id?: string;
+          kit_id?: string;
+          meta?: Json | null;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "media_kit_events_kit_id_media_kits_id_fk";
+            columns: ["kit_id"];
+            isOneToOne: false;
+            referencedRelation: "media_kits";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "media_kit_events_user_id_profiles_id_fk";
+            columns: ["user_id"];
+            isOneToOne: true;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       media_kits: {
         Row: {
           blocks: Json;
@@ -237,7 +285,7 @@ export type Database = {
       };
     };
     Views: {
-      accounts_due_for_update: {
+      accounts_due_for_update_view: {
         Row: {
           access_token: string | null;
           account_id: string | null;

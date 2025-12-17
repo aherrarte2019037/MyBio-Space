@@ -1,4 +1,4 @@
-import { AccountsDueForUpdate, db } from "@repo/db";
+import { AccountsDueForUpdateView, db } from "@repo/db";
 import { fetchAndSaveYouTubeStats } from "@repo/utils/server";
 import { addMinutes, isBefore } from "date-fns";
 import { google } from "googleapis";
@@ -19,7 +19,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const accounts = await db.select().from(AccountsDueForUpdate);
+    const accounts = await db.select().from(AccountsDueForUpdateView);
 
     if (accounts.length === 0) {
       return NextResponse.json({
@@ -65,8 +65,6 @@ export async function GET(request: Request) {
         }
       })
     );
-
-    const _successCount = results.filter((r) => r.status === "fulfilled").length;
 
     return NextResponse.json({
       success: true,

@@ -1,0 +1,1 @@
+DROP VIEW "public"."media_kit_metrics_view";
