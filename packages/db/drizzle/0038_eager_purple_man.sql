@@ -1,0 +1,2 @@
+CREATE TYPE "public"."media_kit_event_type" AS ENUM('view', 'share', 'contact_click', 'link_click');--> statement-breakpoint
+ALTER TABLE "media_kit_events" ALTER COLUMN "event_type" SET DATA TYPE "public"."media_kit_event_type" USING "event_type"::"public"."media_kit_event_type";

@@ -1,6 +1,7 @@
 import { sql } from "drizzle-orm";
-import { jsonb, pgPolicy, pgTable, text, uuid } from "drizzle-orm/pg-core";
+import { jsonb, pgPolicy, pgTable, uuid } from "drizzle-orm/pg-core";
 import { Profiles } from "./account.sql";
+import { mediaKitEventType } from "./enums.sql";
 import { MediaKits } from "./media-kits.sql";
 import type { MediaKitEventTypeList } from "./schema.constants";
 import { timestamps } from "./schema.helpers";
@@ -31,7 +32,7 @@ export const MediaKitEvents = pgTable(
     kitId: uuid("kit_id")
       .references(() => MediaKits.id, { onDelete: "cascade" })
       .notNull(),
-    eventType: text("event_type").$type<MediaKitEventType>().notNull(),
+    eventType: mediaKitEventType("event_type").notNull(),
     meta: jsonb("meta"),
     ...timestamps,
   },

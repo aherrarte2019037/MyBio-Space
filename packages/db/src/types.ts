@@ -106,7 +106,7 @@ export type Database = {
         Row: {
           created_at: string;
           deleted_at: string | null;
-          event_type: string;
+          event_type: Database["public"]["Enums"]["media_kit_event_type"];
           id: string;
           kit_id: string;
           meta: Json | null;
@@ -116,7 +116,7 @@ export type Database = {
         Insert: {
           created_at?: string;
           deleted_at?: string | null;
-          event_type: string;
+          event_type: Database["public"]["Enums"]["media_kit_event_type"];
           id?: string;
           kit_id: string;
           meta?: Json | null;
@@ -126,7 +126,7 @@ export type Database = {
         Update: {
           created_at?: string;
           deleted_at?: string | null;
-          event_type?: string;
+          event_type?: Database["public"]["Enums"]["media_kit_event_type"];
           id?: string;
           kit_id?: string;
           meta?: Json | null;
@@ -315,6 +315,7 @@ export type Database = {
     };
     Enums: {
       connected_account_provider: "youtube" | "instagram";
+      media_kit_event_type: "view" | "share" | "contact_click" | "link_click";
       onboarding_steps: "username" | "avatar" | "stats" | "welcome";
       subscription_interval: "month" | "year";
       subscription_provider: "lemon-squeezy";
@@ -445,6 +446,7 @@ export const Constants = {
   public: {
     Enums: {
       connected_account_provider: ["youtube", "instagram"],
+      media_kit_event_type: ["view", "share", "contact_click", "link_click"],
       onboarding_steps: ["username", "avatar", "stats", "welcome"],
       subscription_interval: ["month", "year"],
       subscription_provider: ["lemon-squeezy"],
