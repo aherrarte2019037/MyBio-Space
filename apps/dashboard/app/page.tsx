@@ -119,7 +119,7 @@ export default async function DashboardPage() {
                     <Link href={`/editor?kitId=${kit.id}`}>Edit Kit</Link>
                   </Button>
                   <Button variant="secondary" className="w-full" asChild>
-                    <Link href={`/analytics?kitId=${kit.id}`}>View Report</Link>
+                    <Link href={`/metrics?kitId=${kit.id}`}>View Report</Link>
                   </Button>
                 </div>
               </div>

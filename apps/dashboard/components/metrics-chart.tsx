@@ -9,7 +9,7 @@ interface Props {
   data: MediaKitDailyStats[];
 }
 
-export function GrowthChart({ data }: Props) {
+export function MetricsChart({ data }: Props) {
   const formatDate = (dateStr: string) => {
     return format(new Date(dateStr), "MMM d");
   };
