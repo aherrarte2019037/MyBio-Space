@@ -32,9 +32,9 @@ export const MediaKitAnalyticsService = {
     const result = takeUnique(
       await db
         .select({
-          views: sql<number>`count(*) filter (where ${MediaKitEvents.eventType} = 'view')`,
-          shares: sql<number>`count(*) filter (where ${MediaKitEvents.eventType} = 'share')`,
-          contacts: sql<number>`count(*) filter (where ${MediaKitEvents.eventType} = 'contact_click')`,
+          views: sql<number>`cast(count(*) filter (where ${MediaKitEvents.eventType} = 'view') as int)`,
+          shares: sql<number>`cast(count(*) filter (where ${MediaKitEvents.eventType} = 'share') as int)`,
+          contacts: sql<number>`cast(count(*) filter (where ${MediaKitEvents.eventType} = 'contact_click') as int)`,
         })
         .from(MediaKitEvents)
         .where(eq(MediaKitEvents.kitId, kitId))
