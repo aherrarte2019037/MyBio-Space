@@ -27,8 +27,7 @@ export const MediaKitEvents = pgTable(
     id: uuid("id").defaultRandom().primaryKey(),
     userId: uuid("user_id")
       .notNull()
-      .references(() => Profiles.id, { onDelete: "cascade" })
-      .unique(),
+      .references(() => Profiles.id, { onDelete: "cascade" }),
     kitId: uuid("kit_id")
       .references(() => MediaKits.id, { onDelete: "cascade" })
       .notNull(),

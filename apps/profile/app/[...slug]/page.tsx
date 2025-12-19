@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlockRenderer } from "@/components/block-renderer";
+import { PageViewedTracker } from "@/components/page-viewed-tracker";
 import { ShareButton } from "@/components/share-button";
 import { getPublishedKitAction } from "./actions";
 
@@ -47,25 +48,28 @@ export default async function MediaKitPage({ params }: PageProps) {
   const radius = kit.theme.radius;
 
   return (
-    <main
-      className="min-h-screen bg-slate-50 p-6 md:p-20 transition-colors duration-200"
-      style={{
-        ["--primary" as string]: primary,
-        ["--radius" as string]: `${radius}rem`,
-      }}
-    >
-      <ShareButton className="fixed top-4 right-4" kit={kit} profile={profile} />
+    <>
+      <PageViewedTracker kitId={kit.id} />
+      <main
+        className="min-h-screen bg-slate-50 p-6 md:p-20 transition-colors duration-200"
+        style={{
+          ["--primary" as string]: primary,
+          ["--radius" as string]: `${radius}rem`,
+        }}
+      >
+        <ShareButton className="fixed top-4 right-4" kit={kit} profile={profile} />
 
-      <div className="mx-auto max-w-md space-y-4">
-        {kit.blocks.map((block) => (
-          <BlockRenderer
-            key={block.id}
-            block={block}
-            profile={profile}
-            analyticsProvider={analyticsProvider}
-          />
-        ))}
-      </div>
-    </main>
+        <div className="mx-auto max-w-md space-y-4">
+          {kit.blocks.map((block) => (
+            <BlockRenderer
+              key={block.id}
+              block={block}
+              profile={profile}
+              analyticsProvider={analyticsProvider}
+            />
+          ))}
+        </div>
+      </main>
+    </>
   );
 }

@@ -1,0 +1,10 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./apps/dashboard" },
+    { "path": "./apps/profile" },
+    { "path": "./packages/ui" },
+    { "path": "./packages/db" },
+    { "path": "./packages/utils" }
+  ]
+}

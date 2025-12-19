@@ -144,7 +144,7 @@ export type Database = {
           {
             foreignKeyName: "media_kit_events_user_id_profiles_id_fk";
             columns: ["user_id"];
-            isOneToOne: true;
+            isOneToOne: false;
             referencedRelation: "profiles";
             referencedColumns: ["id"];
           },

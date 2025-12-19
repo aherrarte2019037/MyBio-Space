@@ -1,7 +1,14 @@
 "use server";
 
-import { type AnalyticsProvider, AnalyticsSnapshots, db, MediaKits, Profiles } from "@repo/db";
-import { YouTubeService } from "@repo/utils/server";
+import {
+  type AnalyticsProvider,
+  AnalyticsSnapshots,
+  db,
+  type MediaKitEventType,
+  MediaKits,
+  Profiles,
+} from "@repo/db";
+import { MediaKitAnalyticsService, YouTubeService } from "@repo/utils/server";
 import { differenceInMinutes } from "date-fns";
 import { and, desc, eq } from "drizzle-orm";
 import { after } from "next/server";
@@ -21,9 +28,6 @@ export async function getCreatorEmailAction(profileId: string) {
 }
 
 export async function getPublishedKitAction(username: string, slug?: string) {
-  console.log("slug", slug);
-  console.log("username", username);
-
   const profile = await db.query.Profiles.findFirst({
     where: eq(Profiles.username, username),
     columns: { id: true },
@@ -104,4 +108,12 @@ export async function getPublishedKitAction(username: string, slug?: string) {
     profile: fullProfile,
     analyticsProvider,
   };
+}
+
+export async function trackInteractionAction(
+  kitId: string,
+  type: MediaKitEventType,
+  meta?: Record<string, unknown>
+) {
+  MediaKitAnalyticsService.trackEvent(kitId, type, meta);
 }

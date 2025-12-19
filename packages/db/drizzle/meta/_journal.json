@@ -274,6 +274,13 @@
       "when": 1765997678446,
       "tag": "0038_eager_purple_man",
       "breakpoints": true
+    },
+    {
+      "idx": 39,
+      "version": "7",
+      "when": 1766112266472,
+      "tag": "0039_sweet_mongoose",
+      "breakpoints": true
     }
   ]
 }

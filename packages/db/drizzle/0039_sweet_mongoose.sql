@@ -1,0 +1,1 @@
+ALTER TABLE "media_kit_events" DROP CONSTRAINT "media_kit_events_user_id_unique";
