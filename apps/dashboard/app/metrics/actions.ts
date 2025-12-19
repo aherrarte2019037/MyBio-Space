@@ -26,7 +26,7 @@ export async function getMetricsDataAction(kitId: string) {
 
   const [totals, history] = await Promise.all([
     MediaKitAnalyticsService.getMetrics(kit.id),
-    MediaKitAnalyticsService.getGrowthChart(kit.id, 30),
+    MediaKitAnalyticsService.getHistory(kit.id, 30),
   ]);
 
   return { kit, profile, totals, history };

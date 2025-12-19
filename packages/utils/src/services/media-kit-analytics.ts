@@ -47,21 +47,22 @@ export const MediaKitAnalyticsService = {
     };
   },
 
-  async getGrowthChart(kitId: string, days = 30): Promise<MediaKitDailyStats[]> {
+  async getHistory(kitId: string, days = 30): Promise<MediaKitDailyStats[]> {
     const endDate = Now();
     const startDate = subDays(endDate, days);
+    const tzOffset = endDate.getTimezoneOffset();
 
     const rawData = await db
       .select({
-        day: sql<string>`to_char(${MediaKitEvents.createdAt}, 'YYYY-MM-DD')`,
-        views: sql<number>`count(*) filter (where ${MediaKitEvents.eventType} = 'view')`,
-        shares: sql<number>`count(*) filter (where ${MediaKitEvents.eventType} = 'share')`,
-        contacts: sql<number>`count(*) filter (where ${MediaKitEvents.eventType} = 'contact_click')`,
+        day: sql<string>`to_char(${MediaKitEvents.createdAt} - (interval '1 minute' * ${tzOffset}), 'YYYY-MM-DD')`,
+        views: sql<number>`cast(count(*) filter (where ${MediaKitEvents.eventType} = 'view') as int)`,
+        shares: sql<number>`cast(count(*) filter (where ${MediaKitEvents.eventType} = 'share') as int)`,
+        contacts: sql<number>`cast(count(*) filter (where ${MediaKitEvents.eventType} = 'contact_click') as int)`,
       })
       .from(MediaKitEvents)
       .where(and(eq(MediaKitEvents.kitId, kitId), gte(MediaKitEvents.createdAt, startDate)))
-      .groupBy(sql`to_char(${MediaKitEvents.createdAt}, 'YYYY-MM-DD')`)
-      .orderBy(sql`to_char(${MediaKitEvents.createdAt}, 'YYYY-MM-DD')`);
+      .groupBy(sql`1`)
+      .orderBy(sql`1`);
 
     const allDays = eachDayOfInterval({ start: startDate, end: endDate });
 

@@ -28,6 +28,14 @@ export function MetricsChart({ data }: Props) {
                   <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3} />
                   <stop offset="95%" stopColor="var(--primary)" stopOpacity={0} />
                 </linearGradient>
+                <linearGradient id="colorShares" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#64748b" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#64748b" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="colorContacts" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#b45309" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#b45309" stopOpacity={0} />
+                </linearGradient>
               </defs>
               <XAxis
                 dataKey="day"
@@ -60,6 +68,22 @@ export function MetricsChart({ data }: Props) {
                 strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#colorViews)"
+              />
+              <Area
+                type="monotone"
+                dataKey="shares"
+                stroke="#64748b"
+                strokeWidth={2}
+                fillOpacity={1}
+                fill="url(#colorShares)"
+              />
+              <Area
+                type="monotone"
+                dataKey="contacts"
+                stroke="#b45309"
+                strokeWidth={2}
+                fillOpacity={1}
+                fill="url(#colorContacts)"
               />
             </AreaChart>
           </ResponsiveContainer>
