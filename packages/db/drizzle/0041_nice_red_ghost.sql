@@ -1,0 +1,2 @@
+ALTER TABLE "media_kit_events" ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+CREATE POLICY "Creators can view their own analytics" ON "media_kit_events" AS PERMISSIVE FOR SELECT TO "authenticated" USING (auth.uid() = "media_kit_events"."user_id");

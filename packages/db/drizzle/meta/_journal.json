@@ -281,6 +281,20 @@
       "when": 1766112266472,
       "tag": "0039_sweet_mongoose",
       "breakpoints": true
+    },
+    {
+      "idx": 40,
+      "version": "7",
+      "when": 1766250677201,
+      "tag": "0040_warm_blur",
+      "breakpoints": true
+    },
+    {
+      "idx": 41,
+      "version": "7",
+      "when": 1766252007853,
+      "tag": "0041_nice_red_ghost",
+      "breakpoints": true
     }
   ]
 }
