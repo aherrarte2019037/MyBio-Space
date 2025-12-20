@@ -32,7 +32,7 @@ export default async function DashboardPage() {
                 interval="month"
                 tier="pro"
                 userId={user.id}
-                buttonText={`Monthly ${CheckoutTiersConfig.pro.month.price}`}
+                buttonText={`Monthly $${CheckoutTiersConfig.pro.month.price}`}
                 {...CheckoutTiersConfig.pro.month}
                 className="bg-zinc-800 hover:bg-zinc-700 text-white"
               />
@@ -40,7 +40,7 @@ export default async function DashboardPage() {
                 interval="year"
                 tier="pro"
                 userId={user.id}
-                buttonText={`Yearly ${CheckoutTiersConfig.pro.year.price}`}
+                buttonText={`Yearly $${CheckoutTiersConfig.pro.year.price}`}
                 {...CheckoutTiersConfig.pro.year}
                 className="bg-amber-600 hover:bg-amber-700 text-white"
               />

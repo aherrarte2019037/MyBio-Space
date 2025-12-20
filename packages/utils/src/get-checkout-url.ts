@@ -9,8 +9,8 @@ interface Props {
 export const getCheckoutUrl = ({ productId, variantId, userId, interval, tier }: Props) => {
   const baseUrl =
     process.env.NODE_ENV === "development"
-      ? `https://store.kyt.one/buy/${productId}`
-      : "https://store.kyt.one/buy";
+      ? `https://store.kyt.one/checkout/buy/${productId}`
+      : "https://store.kyt.one/checkout/buy";
 
   return `${baseUrl}/?enabled=${variantId}&checkout[custom][user_id]=${userId}&checkout[custom][interval]=${interval}&checkout[custom][tier]=${tier}`;
 };
