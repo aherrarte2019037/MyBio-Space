@@ -1,7 +1,8 @@
 import { Button, Card, CardContent, CardHeader, CardTitle } from "@repo/ui";
 import { getKitUrl } from "@repo/utils";
-import { ArrowLeft, Eye, MousePointerClick, Share2 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { LiveKitStats } from "@/components/live-kit-stats";
 import { MetricsChart } from "@/components/metrics-chart";
 import { getMetricsDataAction } from "./actions";
 
@@ -39,26 +40,7 @@ export default async function MetricsPage({ searchParams }: Props) {
         </Button>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
-        <StatsCard
-          title="Total Views"
-          value={totals.views}
-          icon={<Eye />}
-          description="All-time page views"
-        />
-        <StatsCard
-          title="Total Shares"
-          value={totals.shares}
-          icon={<Share2 />}
-          description="Native shares & copies"
-        />
-        <StatsCard
-          title="Conversion Clicks"
-          value={totals.contacts}
-          icon={<MousePointerClick />}
-          description="Work With Me clicks"
-        />
-      </div>
+      <LiveKitStats className="md:grid-cols-3 gap-4" kitId={kit.id} initialStats={totals} />
 
       <div className="grid gap-4 md:grid-cols-1">
         <MetricsChart data={history} />
@@ -67,7 +49,7 @@ export default async function MetricsPage({ searchParams }: Props) {
   );
 }
 
-function StatsCard({
+function _StatsCard({
   title,
   value,
   icon,
