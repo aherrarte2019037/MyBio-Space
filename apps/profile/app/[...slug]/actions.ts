@@ -75,7 +75,9 @@ export async function getPublishedKitAction(username: string, slug?: string) {
         const tier = kit.profile.tier;
         const interval = kit.profile.subscription?.interval;
 
-        console.log(`[YouTube Stale Check] User: ${kit.profile.username}, Diff: ${diffMins}m, Tier: ${tier}, Interval: ${interval}`);
+        console.log(
+          `[YouTube Stale Check] User: ${kit.profile.username}, Diff: ${diffMins}m, Tier: ${tier}, Interval: ${interval}`
+        );
 
         let isStale = false;
 

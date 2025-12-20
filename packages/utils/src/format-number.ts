@@ -1,5 +1,7 @@
+const DefaultNumber = "NaN";
+
 export const shortNumber = (num: number | undefined | null) => {
-  if (!num) return "N/A";
+  if (num === null || num === undefined) return DefaultNumber;
 
   return new Intl.NumberFormat("en-US", {
     notation: "compact",
