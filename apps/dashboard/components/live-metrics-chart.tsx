@@ -3,13 +3,55 @@
 import type { MediaKitDailyStats } from "@repo/db";
 import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui";
 import { format } from "date-fns";
+import { useEffect, useState } from "react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { createClient } from "@/lib/utils/supabase/client";
 
 interface Props {
-  data: MediaKitDailyStats[];
+  kitId: string;
+  initialData: MediaKitDailyStats[];
 }
 
-export function MetricsChart({ data }: Props) {
+export function LiveMetricsChart({ kitId, initialData }: Props) {
+  const [data, setData] = useState(initialData);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const channel = supabase
+      .channel(`chart-events-${kitId}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "media_kit_events",
+          filter: `kit_id=eq.${kitId}`,
+        },
+        (payload) => {
+          const type = payload.new.event_type;
+
+          setData((prevData) => {
+            const newData = [...prevData];
+
+            const lastIndex = newData.length - 1;
+            const lastDay = { ...newData[lastIndex] };
+
+            if (type === "view") lastDay.views += 1;
+            else if (type === "share") lastDay.shares += 1;
+            else if (type === "contact_click") lastDay.contacts += 1;
+            newData[lastIndex] = lastDay;
+
+            return newData;
+          });
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [kitId, supabase]);
+
   const formatDate = (dateStr: string) => {
     return format(new Date(dateStr), "MMM d");
   };
@@ -68,6 +110,8 @@ export function MetricsChart({ data }: Props) {
                 strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#colorViews)"
+                name="Views"
+                animationDuration={500}
               />
               <Area
                 type="monotone"
@@ -76,6 +120,8 @@ export function MetricsChart({ data }: Props) {
                 strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#colorShares)"
+                name="Shares"
+                animationDuration={500}
               />
               <Area
                 type="monotone"
@@ -84,6 +130,8 @@ export function MetricsChart({ data }: Props) {
                 strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#colorContacts)"
+                name="Contacts"
+                animationDuration={500}
               />
             </AreaChart>
           </ResponsiveContainer>

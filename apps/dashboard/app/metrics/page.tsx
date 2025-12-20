@@ -3,7 +3,7 @@ import { getKitUrl } from "@repo/utils";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { LiveKitStats } from "@/components/live-kit-stats";
-import { MetricsChart } from "@/components/metrics-chart";
+import { LiveMetricsChart } from "@/components/live-metrics-chart";
 import { getMetricsDataAction } from "./actions";
 
 interface Props {
@@ -43,7 +43,7 @@ export default async function MetricsPage({ searchParams }: Props) {
       <LiveKitStats className="md:grid-cols-3 gap-4" kitId={kit.id} initialStats={totals} />
 
       <div className="grid gap-4 md:grid-cols-1">
-        <MetricsChart data={history} />
+        <LiveMetricsChart initialData={history} kitId={kit.id} />
       </div>
     </main>
   );
