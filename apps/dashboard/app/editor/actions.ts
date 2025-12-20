@@ -108,3 +108,21 @@ export async function createNewKitAction(slug: string) {
     return { error: err instanceof Error ? err.message : "Failed to create kit" };
   }
 }
+
+export async function togglePublishKitAction(kitId: string, currentState: boolean) {
+  const supabase = await createClient();
+  const user = await getCurrentUser(supabase);
+  if (!user) throw new Error("Unauthorized");
+
+  const newState = !currentState;
+
+  await db
+    .update(MediaKits)
+    .set({ published: newState })
+    .where(and(eq(MediaKits.id, kitId), eq(MediaKits.userId, user.id)));
+
+  revalidatePath("/editor");
+  revalidatePath("/dashboard");
+
+  return newState;
+}
