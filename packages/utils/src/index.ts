@@ -2,6 +2,7 @@ export * from "./default-block-types";
 export * from "./form-validation";
 export * from "./format-number";
 export * from "./get-checkout-url";
+export * from "./get-display-username";
 export * from "./get-kit-url";
 export * from "./get-site-url";
 export * from "./lemon-squeezy-api-url";
