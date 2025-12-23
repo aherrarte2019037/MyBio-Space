@@ -3,15 +3,15 @@ import type {
   InstagramStatMetric,
   YouTubeChartMetric,
   YouTubeStatMetric,
-} from "@repo/db/schema/analytics.sql";
-import type { StatsOrChartBlockType } from "@repo/db/schema/media-kits.sql";
+} from "@repo/db/src/schema/analytics.sql";
+import type { StatsOrChartBlockType } from "@repo/db/src/schema/media-kits.sql";
 import {
   InstagramChartMetricsList,
   InstagramStatMetricsList,
   ProviderList,
   YouTubeChartMetricsList,
   YouTubeStatMetricsList,
-} from "@repo/db/schema/schema.constants";
+} from "@repo/db/src/schema/schema.constants";
 
 type AllMetrics =
   | YouTubeStatMetric
@@ -19,8 +19,8 @@ type AllMetrics =
   | YouTubeChartMetric
   | InstagramChartMetric;
 
-const MetricLabels: Record<AllMetrics, string> = {
-  all: "All Stats (Grid)",
+export const MetricLabels: Record<AllMetrics, string> = {
+  all: "All",
   subscribers: "Subscribers",
   views: "Views",
   videos: "Videos",
@@ -30,9 +30,9 @@ const MetricLabels: Record<AllMetrics, string> = {
   followers: "Followers",
 };
 
-const ProviderLabels: Record<(typeof ProviderList)[number], string> = {
+export const ProviderLabels: Record<(typeof ProviderList)[number], string> = {
   youtube: "YouTube",
-  instagram: "Instagram (Coming Soon)",
+  instagram: "Instagram",
 };
 
 export const ProviderOptions = ProviderList.map((p) => ({

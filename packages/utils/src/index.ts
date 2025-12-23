@@ -6,6 +6,7 @@ export * from "./get-display-username";
 export * from "./get-kit-url";
 export * from "./get-site-url";
 export * from "./lemon-squeezy-api-url";
+export * from "./platform-metrics-utils";
 export * from "./random-id";
 export * from "./short-id";
 export * from "./take-unique";

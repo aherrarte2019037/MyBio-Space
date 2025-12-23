@@ -1,5 +1,5 @@
 import type { AnalyticsProvider, StatsBlockData, YouTubeStats } from "@repo/db";
-import { shortNumber } from "@repo/utils";
+import { MetricLabels, ProviderLabels, shortNumber } from "@repo/utils";
 import { Check } from "lucide-react";
 import Image from "next/image";
 
@@ -36,7 +36,9 @@ export function StatsBlock({ data, analyticsProvider }: Props) {
           </div>
 
           <div className="flex-row-center gap-1.5">
-            <span className="font-serif text-2xl font-bold tracking-tight">YouTube</span>
+            <span className="font-serif text-2xl font-bold tracking-tight">
+              {ProviderLabels[data.provider]}
+            </span>
 
             <div className="flex mt-0.5 p-1 items-center justify-center rounded-full bg-[#ff3f3f] text-white">
               <Check size={10} strokeWidth={4} />
@@ -49,7 +51,7 @@ export function StatsBlock({ data, analyticsProvider }: Props) {
             {shortNumber(youtubeStats.subscribers)}
           </span>
           <span className="mt-3 text-sm font-bold uppercase tracking-widest text-stone-400">
-            Subscribers
+            {MetricLabels.subscribers}
           </span>
         </div>
 
@@ -58,7 +60,7 @@ export function StatsBlock({ data, analyticsProvider }: Props) {
             <span className="font-serif text-4xl font-bold">{shortNumber(youtubeStats.views)}</span>
 
             <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400">
-              Total Views
+              {MetricLabels.views}
             </span>
           </div>
 
@@ -68,7 +70,7 @@ export function StatsBlock({ data, analyticsProvider }: Props) {
             </span>
 
             <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400">
-              Videos
+              {MetricLabels.videos}
             </span>
           </div>
         </div>
