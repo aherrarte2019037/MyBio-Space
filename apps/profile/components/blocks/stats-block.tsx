@@ -1,7 +1,7 @@
-import type { AnalyticsProvider, StatsBlockData, YouTubeStatMetric, YouTubeStats } from "@repo/db";
-import { Card, CardContent, CardHeader, CardTitle } from "@repo/ui";
+import type { AnalyticsProvider, StatsBlockData, YouTubeStats } from "@repo/db";
 import { shortNumber } from "@repo/utils";
-import { Case, Switch, When } from "react-if";
+import { Check } from "lucide-react";
+import Image from "next/image";
 
 interface Props {
   data: StatsBlockData;
@@ -13,63 +13,66 @@ export function StatsBlock({ data, analyticsProvider }: Props) {
   if (!snapshot) return null;
 
   const stats = snapshot.stats;
-  const showAll = data.metric === "all";
+  if (data.provider !== "youtube") return null;
+
+  const youtubeStats = stats as YouTubeStats;
 
   return (
-    <div className="grid gap-4">
-      <Switch>
-        <Case condition={data.provider === "youtube"}>
-          {() => {
-            const youtubeStats = stats as YouTubeStats;
-            const youtubeMetrics = data.metric as YouTubeStatMetric;
+    <div className="group relative overflow-hidden rounded-4xl bg-stone-50 border border-stone-100 p-8 transition-all duration-500 hover:bg-white hover:shadow-xl">
+      <div className="absolute -right-10 -top-10 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(255,0,0,0.2)_0%,transparent_70%)] blur-xl transition-all duration-700 group-hover:scale-125" />
 
-            return (
-              <>
-                <When condition={showAll || youtubeMetrics === "subscribers"}>
-                  <Card className="rounded-(--radius) shadow-sm border-slate-200">
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-sm font-medium text-muted-foreground">
-                        Subscribers
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-3xl font-bold">
-                        {shortNumber(youtubeStats.subscribers)}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </When>
+      <div className="absolute -left-10 -bottom-10 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(255,50,50,0.08)_0%,transparent_70%)] blur-xl transition-all duration-700 group-hover:scale-125" />
 
-                <When condition={showAll || youtubeMetrics === "videos"}>
-                  <Card className="rounded-(--radius) shadow-sm border-slate-200">
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-sm font-medium text-muted-foreground">
-                        Videos
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-3xl font-bold">{shortNumber(youtubeStats.videos)}</div>
-                    </CardContent>
-                  </Card>
-                </When>
+      <div className="absolute top-6 right-6 flex items-center justify-center">
+        <div className="flex size-3 items-center justify-center rounded-full bg-[#EAECF0] shadow-[inset_0_1px_3px_rgba(0,0,0,0.2),0_1px_0_rgba(255,255,255,0.8)]">
+          <div className="size-1.5 rounded-full bg-[#17B26A] shadow-[0_0_8px_1.5px_rgba(23,178,106,0.4)] animate-pulse"></div>
+        </div>
+      </div>
 
-                <When condition={showAll || youtubeMetrics === "views"}>
-                  <Card className="rounded-(--radius) shadow-sm border-slate-200">
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-sm font-medium text-muted-foreground">
-                        Views
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-3xl font-bold">{shortNumber(youtubeStats.views)}</div>
-                    </CardContent>
-                  </Card>
-                </When>
-              </>
-            );
-          }}
-        </Case>
-      </Switch>
+      <div className="relative z-10 flex h-full flex-col justify-between gap-5">
+        <div className="flex items-center gap-2.5">
+          <div className="relative size-8 transition-transform duration-500 group-hover:-rotate-12">
+            <Image src="/images/youtube/logo.webp" alt="YouTube" fill className="object-contain" />
+          </div>
+
+          <div className="flex-row-center gap-1.5">
+            <span className="font-serif text-2xl font-bold tracking-tight">YouTube</span>
+
+            <div className="flex mt-0.5 p-1 items-center justify-center rounded-full bg-[#ff3f3f] text-white">
+              <Check size={10} strokeWidth={4} />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col py-2">
+          <span className="font-serif text-5xl font-black tracking-tighter md:text-7xl leading-[0.85]">
+            {shortNumber(youtubeStats.subscribers)}
+          </span>
+          <span className="mt-3 text-sm font-bold uppercase tracking-widest text-stone-400">
+            Subscribers
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-8 border-t border-stone-300/50 pt-5">
+          <div className="flex flex-col gap-1">
+            <span className="font-serif text-4xl font-bold">{shortNumber(youtubeStats.views)}</span>
+
+            <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400">
+              Total Views
+            </span>
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <span className="font-serif text-4xl font-bold">
+              {shortNumber(youtubeStats.videos)}
+            </span>
+
+            <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400">
+              Videos
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

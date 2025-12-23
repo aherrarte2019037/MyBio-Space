@@ -36,9 +36,8 @@
   --sidebar-accent-foreground: #171717;
   --sidebar-border: #e5e5e5;
   --sidebar-ring: #a1a1a1;
-  --font-sans:
-    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: var(--font-sans, "DM Sans"), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif, "PT Serif"), ui-serif, Georgia, serif;
   --font-mono:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
     monospace;
@@ -59,6 +58,51 @@
   --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
+
+  /* Magazine Typography Scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+
+  /* Gradient Utilities for Editorial Feel */
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    color-mix(in srgb, var(--primary) 70%, white) 100%
+  );
+  --gradient-accent: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.03) 100%);
+
+  /* Neo-brutalist Offset Shadows */
+  --shadow-brutal-sm: 2px 2px 0 0 rgba(0, 0, 0, 0.1);
+  --shadow-brutal-md: 4px 4px 0 0 rgba(0, 0, 0, 0.1);
+  --shadow-brutal-lg: 6px 6px 0 0 rgba(0, 0, 0, 0.12);
+  --shadow-brutal-xl: 8px 8px 0 0 rgba(0, 0, 0, 0.15);
+
+  /* Magazine Accent Colors */
+  --accent-magenta: #ec4899;
+  --accent-yellow: #facc15;
+  --accent-orange: #f97316;
+  --accent-teal: #14b8a6;
+  --accent-coral: #fb7185;
+  --accent-lime: #a3e635;
+  --accent-violet: #a78bfa;
+  --accent-sky: #38bdf8;
+
+  /* Bento Card Backgrounds */
+  --bento-magenta: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+  --bento-yellow: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+  --bento-orange: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  --bento-teal: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  --bento-neutral: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+  --bento-coral: linear-gradient(135deg, #fb7185 0%, #f43f5e 100%);
+
   overscroll-behavior: none;
 }
 
@@ -116,6 +160,32 @@
   --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
   --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
   --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+
+  /* Magazine Typography Scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+
+  /* Gradient Utilities for Editorial Feel */
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    color-mix(in srgb, var(--primary) 70%, black) 100%
+  );
+  --gradient-accent: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.03) 100%);
+
+  /* Neo-brutalist Offset Shadows */
+  --shadow-brutal-sm: 2px 2px 0 0 rgba(255, 255, 255, 0.1);
+  --shadow-brutal-md: 4px 4px 0 0 rgba(255, 255, 255, 0.1);
+  --shadow-brutal-lg: 6px 6px 0 0 rgba(255, 255, 255, 1);
+  --shadow-brutal-xl: 8px 8px 0 0 rgba(255, 255, 255, 0.15);
 }
 
 @theme inline {
@@ -189,6 +259,18 @@
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
+  }
+
+  .flex-row-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-col-center {
+    @apply flex flex-col items-center justify-center;
+  }
+
+  .flex-row {
+    @apply flex;
   }
 
   .flex-col {
