@@ -23,7 +23,7 @@ export function ChartBlock({ data, analyticsProvider }: Props) {
       <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.15)_0%,transparent_70%)] blur-3xl transition-all duration-700 group-hover:scale-125" />
 
       <div
-        className="absolute inset-0 opacity-10 z-0 pointer-events-none mix-blend-overlay"
+        className="absolute inset-0 opacity-20 z-0 pointer-events-none mix-blend-overlay"
         style={{
           backgroundImage: `url("/images/patterns/pattern-2.svg")`,
           backgroundSize: "30px",
