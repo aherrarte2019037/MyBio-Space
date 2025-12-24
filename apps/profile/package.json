@@ -9,9 +9,10 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
     "@repo/db": "workspace:*",
+    "@repo/ui": "workspace:*",
     "@repo/utils": "workspace:*",
+    "auto-text-size": "^0.2.3",
     "date-fns": "catalog:default",
     "googleapis": "catalog:default",
     "lucide-react": "catalog:ui",
@@ -19,8 +20,8 @@
     "react": "catalog:default",
     "react-dom": "catalog:default",
     "react-if": "catalog:ui",
-    "usehooks-ts": "catalog:utils",
-    "recharts": "catalog:ui"
+    "recharts": "catalog:ui",
+    "usehooks-ts": "catalog:utils"
   },
   "devDependencies": {
     "@repo/config": "workspace:*",
