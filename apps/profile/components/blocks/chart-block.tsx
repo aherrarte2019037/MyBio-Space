@@ -19,11 +19,11 @@ export function ChartBlock({ data, analyticsProvider }: Props) {
   const chartData = history.slice(-days).reverse();
 
   return (
-    <div className="cursor-pointer overflow-hidden relative rounded-4xl bg-stone-900 border border-stone-800 p-8 transition-all duration-500 hover:-translate-y-1">
+    <div className="h-full cursor-pointer overflow-hidden relative rounded-4xl bg-stone-900 border border-stone-800 p-8 transition-all duration-500 hover:-translate-y-1">
       <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.15)_0%,transparent_70%)] blur-3xl transition-all duration-700 group-hover:scale-125" />
 
       <div
-        className="absolute inset-0 opacity-20 z-0 pointer-events-none mix-blend-overlay"
+        className="absolute inset-0 opacity-15 z-0 pointer-events-none mix-blend-overlay"
         style={{
           backgroundImage: `url("/images/patterns/pattern-2.svg")`,
           backgroundSize: "30px",

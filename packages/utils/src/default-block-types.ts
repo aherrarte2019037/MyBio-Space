@@ -56,6 +56,8 @@ export const createDefaultBlock = (
         data: {
           title: "New Card",
           description: "Edit me...",
+          backgroundColor: "#d04343",
+          textColor: "#ffffff",
           ...(overrides as Partial<CustomBlockData>),
         },
       };

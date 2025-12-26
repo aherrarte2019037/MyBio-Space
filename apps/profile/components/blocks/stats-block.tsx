@@ -18,7 +18,7 @@ export function StatsBlock({ data, analyticsProvider }: Props) {
   const youtubeStats = stats as YouTubeStats;
 
   return (
-    <div className="cursor-pointer group relative overflow-hidden rounded-4xl bg-stone-50 border border-stone-100 p-8 transition-all duration-500 hover:-translate-y-1">
+    <div className="cursor-pointer group relative overflow-hidden rounded-4xl bg-gray-50 border border-gray-200 p-8 transition-all duration-500 hover:-translate-y-1">
       <div className="absolute -right-10 -top-12 h-64 w-72 rounded-full bg-[radial-gradient(circle,rgba(255,0,0,0.14)_0%,transparent_70%)] blur-xl transition-all duration-500 group-hover:right-0" />
 
       <div className="absolute -left-10 -bottom-10 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(255,50,50,0.1)_0%,transparent_70%)] blur-xl transition-all duration-500 group-hover:left-0" />
@@ -29,7 +29,7 @@ export function StatsBlock({ data, analyticsProvider }: Props) {
         </div>
       </div>
 
-      <div className="relative z-10 flex h-full flex-col justify-between gap-5">
+      <div className="relative z-10 flex h-full flex-col justify-between gap-4">
         <div className="flex items-center gap-2">
           <div className="relative size-8 transition-transform duration-500 group-hover:-rotate-12">
             <Image src="/images/youtube/logo.webp" alt="YouTube" fill className="object-contain" />
@@ -46,26 +46,26 @@ export function StatsBlock({ data, analyticsProvider }: Props) {
           </div>
         </div>
 
-        <div className="flex flex-col py-2">
-          <span className="font-serif text-5xl font-black tracking-tighter md:text-7xl leading-[0.85]">
+        <div className="flex flex-col py-1">
+          <span className="font-serif text-6xl font-black tracking-tighter leading-[0.85]">
             {shortNumber(youtubeStats.subscribers)}
           </span>
-          <span className="mt-3 text-sm font-bold uppercase tracking-widest text-stone-400">
+          <span className="mt-2 text-sm font-bold uppercase tracking-widest text-stone-400">
             {MetricLabels.subscribers}
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-8 border-t border-stone-300/50 pt-5">
-          <div className="flex flex-col gap-1">
-            <span className="font-serif text-4xl font-bold">{shortNumber(youtubeStats.views)}</span>
+        <div className="flex gap-8 border-t border-stone-300/50 pt-4">
+          <div className="flex flex-col">
+            <span className="font-serif text-3xl font-bold">{shortNumber(youtubeStats.views)}</span>
 
             <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400">
               {MetricLabels.views}
             </span>
           </div>
 
-          <div className="flex flex-col gap-1">
-            <span className="font-serif text-4xl font-bold">
+          <div className="flex flex-col">
+            <span className="font-serif text-3xl font-bold">
               {shortNumber(youtubeStats.videos)}
             </span>
 

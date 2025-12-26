@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { KitBlock } from "@repo/db";
 import { Button, FormInput, FormSelect } from "@repo/ui";
+import { getProviderMetricOptions, ProviderOptions } from "@repo/utils";
 import { useEffect } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { Case, Default, Switch } from "react-if";
@@ -14,7 +15,6 @@ import {
   SeparatorSchema,
   StatsSchema,
 } from "@/lib/schemas/editor-blocks";
-import { getProviderMetricOptions, ProviderOptions } from "@/lib/utils/platform-metric-options";
 import { AvatarImageUpload } from "./avatar-image-upload";
 
 interface Props {
