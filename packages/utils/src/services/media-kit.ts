@@ -28,7 +28,6 @@ export const MediaKitService = {
           published: true,
           default: true,
           blocks: [
-            createDefaultBlock("profile", { displayName: profile.username }),
             createDefaultBlock("separator", { title: "Stats" }),
             createDefaultBlock("stats", { provider: "youtube", metric: "all" }),
             createDefaultBlock("separator", { title: "Contact" }),
@@ -63,7 +62,6 @@ export const MediaKitService = {
           published: true,
           default: false,
           blocks: [
-            createDefaultBlock("profile", { displayName: profile.username }),
             createDefaultBlock("separator", { title: "Stats" }),
             createDefaultBlock("stats", { provider: "youtube", metric: "all" }),
             createDefaultBlock("separator", { title: "Contact" }),
